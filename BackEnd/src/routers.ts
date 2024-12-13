@@ -98,11 +98,9 @@ router.post('/add-account', upload.single('ProfilePicture'), async (req: Request
     if(rawfile){
       const ppfilepath = rawfile.path;
       const ppfilename = rawfile.filename;
-      const uploadResult = await handleFileUpload(ppfilepath, ppfilename);
+      await handleFileUpload(ppfilepath, ppfilename);
 
-      if(uploadResult){res.status(200).json({message: 'File uploaded successfully'})}
     }
-
     res.status(201).json({
       message: 'Account created successfully',
       userId: userID, // Send back the userId to the frontend
@@ -255,9 +253,7 @@ router.post('/add-notes', upload.single('filepath'), async (req: Request, res: R
     if (contentfile){
       const filepath = contentfile.path;
       const filename = contentfile.filename;
-      const uploadResult = await handleFileUpload(filepath, filename);
-
-      if(uploadResult){res.status(200).json({message: 'File uploaded successfully'})}
+      await handleFileUpload(filepath, filename);
     }
 
     const noteID = result.rows[0].note_id;
