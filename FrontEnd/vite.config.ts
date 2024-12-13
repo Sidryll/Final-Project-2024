@@ -10,4 +10,7 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: 'dist', // Directory for the output files
+  },
 });

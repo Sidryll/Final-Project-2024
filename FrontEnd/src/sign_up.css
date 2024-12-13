@@ -73,6 +73,134 @@ body {
   background-color: #f2b02d;
 }
 
+.incorrect_email,
+.incorrect_password {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  height: 32vh;
+  width: 36vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.incorrect_email .email_message,
+.incorrect_password .inco_message {
+  font-size: 4.3vh;
+  color: #333;
+  margin-bottom: 1.5vh;
+  background-color: #ffffff;
+}
+
+.incorrect_email .email_button,
+.incorrect_password .inco_button {
+  padding: 1vh 2vw;
+  background-color: #fcc857;
+  border: none;
+  border-radius: 4vh;
+  color: white;
+  font-size: 2.8vh;
+  cursor: pointer;
+}
+
+.incorrect_email .email_button:hover,
+.incorrect_password .inco_button:hover {
+  background-color: #f2b02d;
+}
+
+.incomplete_fields {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  height: 32vh;
+  width: 36vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 1px solid #ccc;
+}
+.incomplete_fields,
+.invalid_email,
+.email_in_use {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  height: 32vh;
+  width: 36vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.fields_message,
+.email_message {
+  font-size: 4.3vh;
+  color: #333;
+  margin-bottom: 1.5vh;
+  background-color: #ffffff;
+}
+
+.fields_button,
+.email_button {
+  padding: 1vh 2vw;
+  background-color: #fcc857;
+  border: none;
+  border-radius: 4vh;
+  color: white;
+  font-size: 2.8vh;
+  cursor: pointer;
+}
+
+.fields_button:hover,
+.email_button:hover {
+  background-color: #f2b02d;
+}
+
+.fields_message {
+  font-size: 4.3vh;
+  color: #333;
+  margin-bottom: 1.5vh;
+  background-color: #ffffff;
+}
+
+.fields_button {
+  padding: 1vh 2vw;
+  background-color: #fcc857;
+  border: none;
+  border-radius: 4vh;
+  color: white;
+  font-size: 2.8vh;
+  cursor: pointer;
+}
+
+.fields_button:hover {
+  background-color: #f2b02d;
+}
+
 .login_container_style {
   z-index: 1;
   border: 2px solid white;
@@ -150,64 +278,15 @@ input {
   background-color: #ffffff;
 }
 
-/* Button styling */
 .login_button_style {
   margin-top: 2.4vh;
   height: 6vh;
   width: 12vw;
-  border: 2px solid transparent; /* Initial border to avoid layout jump */
-  border-radius: 4vh;  /* Rounded corners initially */
-  color: white;  /* Gold text color */
+  border: none;
+  border-radius: 4vh;
+  color: white;
   font-size: 2.4vh;
   font-weight: bold;
-  background-color: #ffc146;  /* Background color initially */
-  display: flex;
-  justify-content: center;  /* Center align the content */
-  align-items: center;  /* Vertically center the content */
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease-in-out;  /* Smooth transition for all effects */
-}
-
-/* Initially hide the icon and display the text */
-.login_button_style .button-icon {
-  display: none;
-}
-
-/* Hover effect */
-.login_button_style:hover {
-  cursor: pointer;
-  transform: scale(1.1);  /* Slight scaling effect */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  color: white;  /* Change text color to white on hover */
-  border-color: #ffc146;  /* Glowing golden border on hover */
-  border-radius: 50%; /* Make the button a circle */
-  width: 6vh;  /* Reduce the width to make the button a circle */
-  height: 6vh;  /* Reduce the height to match the width */
-}
-
-/* Text and icon transition */
-.login_button_style:hover .button-text {
-  display: none;  /* Hide the text completely on hover */
-}
-
-.login_button_style:hover .button-icon {
-  display: inline-block;  /* Show the icon on hover */
-  font-size: 3vh;  /* Adjust icon size */
-  transition: opacity 0.4s ease-in-out; /* Fade-in effect for the icon */
-}
-
-/* Ensure the text and icon stay centered */
-.login_button_style span {
-  position: relative;
-  z-index: 1;
-}
-
-.login_button_style .button-text {
-  display: inline-block;  /* Display the text initially */
-  transition: opacity 0.4s ease-in-out;
-  z-index: 1;
-  background-color: #ffc146;
 }
 
 p {
@@ -216,97 +295,8 @@ p {
 
 .log {
   background-color: #ffffff;
-  font-size: 1.6vh;
-  color: #333;
-  text-align: center;
 }
 
 .redirect_link {
   background-color: white;
-  color: #ffc146;
-  text-decoration: none;
 }
-
-.redirect_link:hover {
-  text-decoration: underline;
-}
-
-/* Button styling */
-/*.login_button_style {
-  margin-top: 2.4vh;
-  height: 6vh;
-  width: 12vw;
-  border: 2px solid transparent; /* Initial border to avoid layout jump */
-  /*border-radius: 4vh;
-  color: white;  /* Gold text color */
-  /*font-size: 2.4vh;
-  font-weight: bold;
-  background-color: #fea900;  /* Dark background color initially */
-  /*display: flex;
-  justify-content: center;  /* Center align the content */
-  /*align-items: center;  /* Vertically center the content */
-  /*position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease-in-out;  /* Smooth transition for all effects */
-/*}
-
-/* Initially hide the icon and display the text */
-/*.login_button_style .button-icon {
-  display: none;
-}
-
-/* Hover effect */
-/*.login_button_style:hover {
-  cursor: pointer;
-  transform: scale(1.1);  /* Slight scaling effect */
-  /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  color: white;  /* Change text color to white on hover */
-  /*border-color: #ffc146;  /* Glowing golden border on hover */
-/*}
-
-/* Border animation on hover */
-/*.login_button_style::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background-color: #ffc146;  /* Golden color for the border effect */
-  /*transition: width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
-  border-radius: 50%;
-  transform: translate(-50%, -35%);
-  z-index: 0;
-/*}
-
-/* Expanding border effect */
-/*.login_button_style:hover::before {
-  width: 300%;
-  height: 300%;
-  top: -50%;
-  left: -50%;
-/*}
-
-/* Text and icon transition */
-/*.login_button_style:hover .button-text {
-  /*display: none;  /* Hide the text completely on hover */
-/*}
-
-/*.login_button_style:hover .button-icon {
-  display: inline-block;  /* Show the icon on hover */
-  /*font-size: 3vh;  /* Adjust icon size */
-  /*transition: opacity 0.4s ease-in-out; /* Fade-in effect for the icon */
-/*}
-
-/* Ensure the text and icon stay centered */
-/*.login_button_style span {
-  position: relative;
-  z-index: 1;
-}
-
-/*.login_button_style .button-text {
-  display: inline-block;  /* Display the text initially */
-  /*transition: opacity 0.4s ease-in-out;
-  /*z-index: 1;
-  background-color: #fea900;
-/*}
