@@ -1,8 +1,19 @@
 import bcrypt from 'bcrypt';
+import { createClient } from '@supabase/supabase-js';
+import fs from 'fs';
 import express, { Request, Response } from 'express';
 import pool from './db';
 import multer from 'multer';
 import path from 'path';
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error("Missing Supabase URL or Key in environment variables.");
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Set up Multer storage configuration
 const storage = multer.diskStorage({
@@ -32,11 +43,44 @@ const upload = multer({
   },
 });
 
+//Direct file upload to remote storage
+const handleFileUpload = async (filePath: string, fileName: string): Promise<any | null> => {
+  try {
+    // Read file from the local disk
+    const fileData = fs.readFileSync(filePath);
+
+    // Upload file to Supabase storage
+    const { data, error } = await supabase.storage
+      .from('uploads')
+      .upload(`uploads/${fileName}`, fileData, {
+        cacheControl: '3600',
+        upsert: false,
+      });
+
+    if (error) {
+      console.error('Failed to upload file to Supabase:', error.message);
+      return null;
+    }
+
+    console.log('File uploaded successfully:', data);
+    return data;
+  } catch (err) {
+    console.error('Error handling file upload:', (err as Error).message);
+    return null;
+  } finally {
+    // Clean up temporary file
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  }
+};
+
 const router = express.Router();
 
 // Router for adding a new account to the database
 router.post('/add-account', upload.single('ProfilePicture'), async (req: Request, res: Response) => {
   const { UserName, Email, Password } = req.body;
+  const rawfile= req.file;
   const profilePicture = req.file ? req.file.path : null;
 
   try {
@@ -50,6 +94,14 @@ router.post('/add-account', upload.single('ProfilePicture'), async (req: Request
     const userID = result.rows[0].user_id;
     const userName = result.rows[0].username;
     const email = result.rows[0].email;
+
+    if(rawfile){
+      const ppfilepath = rawfile.path;
+      const ppfilename = rawfile.filename;
+      const uploadResult = await handleFileUpload(ppfilepath, ppfilename);
+
+      if(uploadResult){res.status(200).json({message: 'File uploaded successfully'})}
+    }
 
     res.status(201).json({
       message: 'Account created successfully',
@@ -190,6 +242,7 @@ router.post('/add-notes', upload.single('filepath'), async (req: Request, res: R
   }
 
   try {
+    const contentfile = req.file;
     const result = await pool.query('INSERT INTO note (topic, filepath, upload_date, user_id, yearlevel_id, subject_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING note_id', [
       topic,
       content,
@@ -198,6 +251,14 @@ router.post('/add-notes', upload.single('filepath'), async (req: Request, res: R
       yearlevel_id,
       subject_id,
     ]);
+
+    if (contentfile){
+      const filepath = contentfile.path;
+      const filename = contentfile.filename;
+      const uploadResult = await handleFileUpload(filepath, filename);
+
+      if(uploadResult){res.status(200).json({message: 'File uploaded successfully'})}
+    }
 
     const noteID = result.rows[0].note_id;
     const r = result.rows[0];
