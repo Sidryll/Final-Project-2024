@@ -45,7 +45,7 @@ const fetchMyNotes = async (user_id: number) => {
         
           <div class="notes_cont_box">
             <button class="save-button" data-id="${note.note_id}">Save</button>
-            <button class="download_button" title="Download">Download</button>
+            <button class="delete_button" title="Delete" data-id="${note.note_id}">Delete</button>
             <img src="src/pdf.svg" alt="file type" class="file_type_img">
             <p class="subject_cont"><strong>Subject:</strong> ${note.subject_name}</p>
             <p class ="topic_cont"><strong>Topic:</strong> ${note.topic}</p>

@@ -1,3 +1,5 @@
+import { downloadNoteHandler } from './utils';  // Import the utility function
+
 //Get the notes in the database that have been added by the user. Uses userId as parameter.
 document.addEventListener('DOMContentLoaded', () => {
   //   const userId = localStorage.getItem('userID');
@@ -38,7 +40,7 @@ const fetchPublicNotes = async () => {
         
           <div class="notes_cont_box">
             <button class="save-button" data-id="${note.note_id}">Save</button>
-            <button class="download_button" title="Download">Download</button>
+            <button class="download_button" title="Download" data-id="${note.note_id}">Download</button>
             <img src="src/pdf.svg" alt="file type" class="file_type_img">
             <p class="subject_cont"><strong>Subject:</strong> ${note.subject_name}</p>
             <p class ="topic_cont"><strong>Topic:</strong> ${note.topic}</p>
@@ -65,6 +67,17 @@ const fetchPublicNotes = async () => {
           }
         });
       }
+
+      const downloadButton = noteElement.querySelector('.download_button') as HTMLButtonElement;
+      if (downloadButton) {
+        downloadButton.addEventListener('click', () => {
+          const noteId = parseInt(downloadButton.getAttribute('data-id') || '', 10);
+          if (noteId) {
+            downloadNoteHandler(noteId);
+          }
+        });
+      }
+
       notesContainer.appendChild(noteElement);
     });
   } catch (error) {

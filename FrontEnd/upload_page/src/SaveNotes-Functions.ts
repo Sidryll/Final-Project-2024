@@ -1,3 +1,5 @@
+import { downloadNoteHandler } from './utils';  // Import the utility function
+
 document.addEventListener('DOMContentLoaded', () => {
   const logged_account = localStorage.getItem('logged-email');
   const userId = logged_account ? localStorage.getItem(logged_account) : null;
@@ -34,7 +36,7 @@ const fetchSavedNotes = async (user_id: number) => {
 
                 <div class="notes_cont_box">
                   <button class="unsaved-button" data-id="${savedNote.saved_notes_id}">unSave</button>
-                  <button class="download_button" title="Download">Download</button>
+                  <button class="download_button" title="Download" data-id="${savedNote.saved_notes_id}">Download</button>
                   <img src="src/pdf.svg" alt="file type" class="file_type_img">
                   <p class="subject_cont"><strong>Subject:</strong>${savedNote.subject_name}</p>
                   <p class ="topic_cont"><strong>Topic:</strong> ${savedNote.topic}</p>
@@ -54,6 +56,17 @@ const fetchSavedNotes = async (user_id: number) => {
           }
         });
       }
+
+      const downloadButton = noteElement.querySelector('.download_button') as HTMLButtonElement;
+      if (downloadButton) {
+        downloadButton.addEventListener('click', () => {
+          const savedNotesId = parseInt(downloadButton.getAttribute('data-id') || '', 10);
+          if (savedNotesId) {
+            downloadNoteHandler(savedNotesId);
+          }
+        });
+      }
+
       notesContainer.appendChild(noteElement);
     });
   } catch (error) {
