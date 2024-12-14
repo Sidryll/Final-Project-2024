@@ -16,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const notesContainer = document.querySelector<HTMLDivElement>('.notes_container');
   const yearSelect = document.getElementById('year') as HTMLSelectElement;
   const subjectInput = document.getElementById('subject_input') as HTMLSelectElement;
-  const searchInput = document.getElementById('search_input') as HTMLInputElement; // Search input field
+
+  //Search Input
+  const searchInput = document.getElementById('search_input') as HTMLInputElement;
 
   if (!notesContainer || !yearSelect || !subjectInput || !searchInput) {
     console.error('Required DOM elements not found.');
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Function to render filtered notes
-  function renderNotes(filteredNotes: Note[]): void {
+  const renderNotes = (filteredNotes: Note[]): void => {
     notesContainer.innerHTML = ''; // Clear current content
 
     if (filteredNotes.length === 0) {
@@ -61,40 +63,53 @@ document.addEventListener('DOMContentLoaded', () => {
       fileLink.appendChild(fileDiv);
       notesContainer.appendChild(fileLink);
     });
-  }
+  };
 
   // Function to filter notes based on year, subject, and search query (search by subject or topic)
-  function filterNotes(): void {
+  const filterNotes = (): void => {
     const selectedYear = yearSelect.value;
     const selectedSubject = subjectInput.value;
-    const searchQuery = searchInput.value.trim().toLowerCase(); // Get the search query
+    const searchQuery = searchInput.value.trim().toLowerCase();
 
     const filteredNotes = notes.filter((note) => {
       const matchesYear = selectedYear ? note.year === selectedYear : true;
       const matchesSubject = selectedSubject ? note.subject === selectedSubject : true;
 
-      // Search by subject or topic
-      const matchesSearch = !searchQuery || (note.subject && note.subject.toLowerCase().includes(searchQuery)) || (note.topic && note.topic.toLowerCase().includes(searchQuery));
+      // Check if searched keywords match the query subject or topic
+      const matchesSearch =
+        !searchQuery ||
+        searchQuery.split(' ').every((keyword) =>
+          (note.subject && note.subject.toLowerCase().includes(keyword)) ||
+          (note.topic && note.topic.toLowerCase().includes(keyword))
+        );
 
       return matchesYear && matchesSubject && matchesSearch;
     });
 
     renderNotes(filteredNotes);
-  }
+  };
 
   // Function to populate subjects based on the selected year
-  function updateSubjects(): void {
+  const updateSubjects = (): void => {
     const year = yearSelect.value;
     let subjects: string[] = [];
 
-    if (year === 'first') {
-      subjects = ['Calculus 1', 'Chemistry', 'Software Development 1', 'Physics', 'General Math'];
-    } else if (year === 'second') {
-      subjects = ['Algorithms', 'Data Structures', 'Linear Algebra', 'Operating Systems'];
-    } else if (year === 'third') {
-      subjects = ['Machine Learning', 'Computer Networks', 'Software Engineering'];
-    } else if (year === 'fourth') {
-      subjects = ['Capstone Project', 'Advanced Programming', 'Distributed Systems'];
+    switch (year) {
+      case 'first':
+        subjects = ['Calculus 1', 'Chemistry', 'Software Development 1', 'Physics', 'General Math'];
+        break;
+      case 'second':
+        subjects = ['Algorithms', 'Data Structures', 'Linear Algebra', 'Operating Systems'];
+        break;
+      case 'third':
+        subjects = ['Machine Learning', 'Computer Networks', 'Software Engineering'];
+        break;
+      case 'fourth':
+        subjects = ['Capstone Project', 'Advanced Programming', 'Distributed Systems'];
+        break;
+      default:
+        subjects = [];
+        break;
     }
 
     subjectInput.innerHTML = '<option value="">Select Subject</option>';
@@ -107,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     subjectInput.disabled = false;
     filterNotes(); // Filter notes whenever the subjects are updated
-  }
+  };
 
   // Attach event listeners
   yearSelect.addEventListener('change', () => {
@@ -123,3 +138,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render of all notes
   renderNotes(notes);
 });
+
