@@ -392,4 +392,47 @@ router.get('/display-saved_notes', async (req: Request, res: Response): Promise<
   }
 });
 
+router.post('/change-password', async (req: Request, res: Response): Promise<void> => {
+  const { email, oldPassword, newPassword } = req.body;
+
+  try {
+    // Validate input
+    if (!email || !oldPassword || !newPassword) {
+      res.status(400).json({ message: 'All fields are required.' });
+      return;
+    }
+
+    // Check if the user exists in the database
+    const userQuery = 'SELECT user_id, user_password FROM users WHERE email = $1'; // Updated to use user_password
+    const userResult = await pool.query(userQuery, [email]);
+
+    if (userResult.rows.length === 0) {
+      res.status(404).json({ message: 'User not found.' });
+      return;
+    }
+
+    const user = userResult.rows[0];
+
+    // Verify the old password
+    const isMatch = await bcrypt.compare(oldPassword, user.user_password); // Updated to use user_password
+    if (!isMatch) {
+      res.status(401).json({ message: 'Current password is incorrect.' });
+      return;
+    }
+
+    // Hash the new password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    // Update the password in the database
+    const updateQuery = 'UPDATE users SET user_password = $1 WHERE user_id = $2'; // Updated to use user_password
+    await pool.query(updateQuery, [hashedPassword, user.user_id]); // Ensure we're using user_id
+
+    res.status(200).json({ message: 'Password updated successfully.' });
+  } catch (error) {
+    console.error('Error updating password:', error);
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+});
+
 export default router;
