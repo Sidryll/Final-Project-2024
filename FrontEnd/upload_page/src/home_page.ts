@@ -51,14 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const username = note.username || 'Anonymous';
 
       fileDiv.innerHTML = `
-        <button class="favorites" title="Mark as Favorite"></button>
-        <button class="download_button" title="Download"></button>
-        <img src="src/pdf.svg" alt="file type" class="file_type_img">
-        <p class="subject_cont"><strong>Subject:</strong> ${subject}</p>
-        <p class="topic_cont"><strong>Topic:</strong> ${topic}</p>
-        <img src="src/profile_notes.svg" alt="profile" class="profile">
-        <p class="user_name_cont"><strong class="username">${username}</strong></p>
-      `;
+          <button class="favorites" title="Mark as Favorite"></button>
+          <button class="download_button" title="Download"></button>
+          <img src="src/pdf.svg" alt="file type" class="file_type_img">
+          <p class="subject_cont"><strong>Subject:</strong> ${subject}</p>
+          <p class="topic_cont"><strong>Topic:</strong> ${topic}</p>
+          <img src="src/profile_notes.svg" alt="profile" class="profile">
+          <p class="user_name_cont"><strong class="username">${username}</strong></p>
+        `;
 
       fileLink.appendChild(fileDiv);
       notesContainer.appendChild(fileLink);
@@ -77,11 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Check if searched keywords match the query subject or topic
       const matchesSearch =
-        !searchQuery ||
-        searchQuery.split(' ').every((keyword) =>
-          (note.subject && note.subject.toLowerCase().includes(keyword)) ||
-          (note.topic && note.topic.toLowerCase().includes(keyword))
-        );
+        !searchQuery || searchQuery.split(' ').every((keyword) => (note.subject && note.subject.toLowerCase().includes(keyword)) || (note.topic && note.topic.toLowerCase().includes(keyword)));
 
       return matchesYear && matchesSubject && matchesSearch;
     });
@@ -138,4 +134,3 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render of all notes
   renderNotes(notes);
 });
-
