@@ -1,21 +1,26 @@
-export const downloadNoteHandler = async (savedNotesId: number): Promise<void> => {
+export const downloadNoteHandler = async (noteId: number, isSavedNote: boolean): Promise<void> => {
     try {
-      const response = await fetch(`http://localhost:3000/api/download-note?saved_notes_id=${savedNotesId}`);
+      // Determine the correct API URL based on whether it's a saved note or public note
+      const apiUrl = isSavedNote
+        ? `http://localhost:3000/api/download-note?saved_notes_id=${noteId}`
+        : `http://localhost:3000/api/download-public-note?note_id=${noteId}`; // New endpoint for public notes
+  
+      const response = await fetch(apiUrl);
+  
       if (!response.ok) {
         throw new Error('Failed to fetch note for download');
       }
   
-      const blob = await response.blob();  // Moni ang gakwa sang file as a Blob
-      const url = window.URL.createObjectURL(blob);  // Moni ga create sang URL para sa Blob
+      const blob = await response.blob();  // Convert the response to a Blob
+      const url = window.URL.createObjectURL(blob);  // Create a temporary URL for the Blob
   
-      // Amo ni ang acnhor nga element para ma trigger ang download button
+      // Create an anchor element to trigger the download
       const link = document.createElement('a');
       link.href = url;
-      link.download = `saved_note_${savedNotesId}.txt`;  // Moni ang ma set sang filename sang gin dl.
-      link.click();  // Specifically, moni ga trigger onclick or when clicked
+      link.download = `note_${noteId}.txt`;  // Name the file based on the note ID
+      link.click();  // Trigger the download
   
-
-      // Amo ni ma catch after trying ang fucntion abovve.
+      // Release the Blob URL
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error downloading note:', error);

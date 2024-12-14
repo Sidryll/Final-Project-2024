@@ -73,10 +73,11 @@ const fetchPublicNotes = async () => {
         downloadButton.addEventListener('click', () => {
           const noteId = parseInt(downloadButton.getAttribute('data-id') || '', 10);
           if (noteId) {
-            downloadNoteHandler(noteId);
+            // For public notes, set isSavedNote to false
+            downloadNoteHandler(noteId, false);  // Passing false for public notes
           }
         });
-      }
+      }      
 
       notesContainer.appendChild(noteElement);
     });

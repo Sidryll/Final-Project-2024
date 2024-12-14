@@ -62,7 +62,8 @@ const fetchSavedNotes = async (user_id: number) => {
         downloadButton.addEventListener('click', () => {
           const savedNotesId = parseInt(downloadButton.getAttribute('data-id') || '', 10);
           if (savedNotesId) {
-            downloadNoteHandler(savedNotesId);
+            // For saved notes, set isSavedNote to true
+            downloadNoteHandler(savedNotesId, true);  // Passing true for saved notes
           }
         });
       }
