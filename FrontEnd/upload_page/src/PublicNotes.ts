@@ -95,3 +95,5 @@ const saveNote = async (note_id: number, user_id: number) => {
     alert('An error occurred while saving the note.');
   }
 };
+
+// ========================== for filtering/categorizing notes =====

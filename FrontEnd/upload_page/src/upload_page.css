@@ -316,3 +316,53 @@ select {
   background-color: #ffc857;
   color: white;
 }
+
+
+/* Style for the progress container */
+#progress-container {
+    margin-left: 200vw;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    display: none; /* Hidden by default */
+}
+
+/* Label for the progress */
+#progress-container label {
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Style for the progress bar */
+#progress {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    appearance: none;
+    background-color: #e0e0e0;
+}
+
+#progress::-webkit-progress-bar {
+    border-radius: 10px;
+}
+
+#progress::-webkit-progress-value {
+    border-radius: 10px;
+    background-color: #4caf50; /* Green color for progress */
+}
+
+/* Progress percentage text */
+#progress-text {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #333;
+}
