@@ -44,7 +44,7 @@ const upload = multer({
 });
 
 //Direct file upload to remote storage
-const handleFileUpload = async (filePath: string, fileName: string): Promise<any | null> => {
+const handleFileUpload = async (filePath: string, fileName: string): Promise<void | null> => {
   try {
     // Read file from the local disk
     const fileData = fs.readFileSync(filePath);
@@ -61,7 +61,6 @@ const handleFileUpload = async (filePath: string, fileName: string): Promise<any
     }
 
     console.log('File uploaded successfully:', data);
-    return data;
   } catch (err) {
     console.error('Error handling file upload:', (err as Error).message);
     return null;
