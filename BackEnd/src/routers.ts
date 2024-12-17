@@ -10,7 +10,7 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Missing Supabase URL or Key in environment variables.");
+  throw new Error('Missing Supabase URL or Key in environment variables.');
 }
 
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -50,12 +50,10 @@ const handleFileUpload = async (filePath: string, fileName: string): Promise<any
     const fileData = fs.readFileSync(filePath);
 
     // Upload file to Supabase storage
-    const { data, error } = await supabase.storage
-      .from('uploads')
-      .upload(`uploads/${fileName}`, fileData, {
-        cacheControl: '3600',
-        upsert: false,
-      });
+    const { data, error } = await supabase.storage.from('uploads').upload(`uploads/${fileName}`, fileData, {
+      cacheControl: '3600',
+      upsert: false,
+    });
 
     if (error) {
       console.error('Failed to upload file to Supabase:', error.message);
@@ -80,7 +78,7 @@ const router = express.Router();
 // Router for adding a new account to the database
 router.post('/add-account', upload.single('ProfilePicture'), async (req: Request, res: Response) => {
   const { UserName, Email, Password } = req.body;
-  const rawfile= req.file;
+  const rawfile = req.file;
   const profilePicture = req.file ? req.file.path : null;
 
   try {
@@ -95,11 +93,10 @@ router.post('/add-account', upload.single('ProfilePicture'), async (req: Request
     const userName = result.rows[0].username;
     const email = result.rows[0].email;
 
-    if(rawfile){
+    if (rawfile) {
       const ppfilepath = rawfile.path;
       const ppfilename = rawfile.filename;
       await handleFileUpload(ppfilepath, ppfilename);
-
     }
     res.status(201).json({
       message: 'Account created successfully',
@@ -250,7 +247,7 @@ router.post('/add-notes', upload.single('filepath'), async (req: Request, res: R
       subject_id,
     ]);
 
-    if (contentfile){
+    if (contentfile) {
       const filepath = contentfile.path;
       const filename = contentfile.filename;
       await handleFileUpload(filepath, filename);
