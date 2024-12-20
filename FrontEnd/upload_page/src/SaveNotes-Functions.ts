@@ -26,7 +26,7 @@ const fetchSavedNotes = async (user_id: number) => {
     const savedNotes = await response.json();
     console.log('Fetched saved notes:', savedNotes);
 
-    savedNotes.forEach((savedNote: { saved_notes_id: number; topic: string; upload_date: string; subject_name: string; username: string }) => {
+    savedNotes.forEach((savedNote: { file_url: string; saved_notes_id: number; topic: string; upload_date: string; subject_name: string; username: string }) => {
       const noteElement = document.createElement('div');
       noteElement.className = 'note';
       //Add Design of Notes here.
@@ -34,7 +34,7 @@ const fetchSavedNotes = async (user_id: number) => {
 
                 <div class="notes_cont_box">
                   <button class="unsaved-button" data-id="${savedNote.saved_notes_id}">unSave</button>
-                  <button class="download_button" title="Download">Download</button>
+                  <a href="${savedNote.file_url}" class = "download_a"download title="Download"><button class="download_button">Preview</button></a>
                   <img src="src/pdf.svg" alt="file type" class="file_type_img">
                   <p class="subject_cont"><strong>Subject:</strong>  ${savedNote.subject_name}</p>
                   <p class ="topic_cont"><strong>Topic:</strong> ${savedNote.topic}</p>
@@ -54,20 +54,6 @@ const fetchSavedNotes = async (user_id: number) => {
           }
         });
       }
-
-      // Add event listeners to the download buttons
-      const download_button = () => {
-        const downloadButtons = document.querySelectorAll('.download_button');
-        downloadButtons.forEach(button => {
-          const noteId = parseInt(button.getAttribute('data-id') as string, 10);
-          button.addEventListener('click', () => {
-            downloadNoteHandlerSave(noteId);  // Trigger the download handler
-          });
-        });
-      };
-
-      // Initialize download buttons
-      download_button();
 
       notesContainer.appendChild(noteElement);
     });

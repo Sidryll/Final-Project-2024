@@ -27,10 +27,67 @@ const storage = multer.diskStorage({
   },
 });
 
+// Initialize Multer with the storage configuration
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    console.log('File MIME Type:', file.mimetype);
+    console.log('File Extension:', path.extname(file.originalname).toLowerCase());
+
+    const filetypes = /\.(jpeg|jpg|png|gif|pdf|pptx|docx)$/i; // Match extensions
+    const mimetypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/gif',
+      'application/pdf',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ]; // Match MIME types
+
+    const extname = filetypes.test(file.originalname.toLowerCase());
+    const mimetype = mimetypes.includes(file.mimetype);
+
+    if (mimetype && extname) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type'));
+    }
+  },
+});
+
 
 
 //Direct file upload to remote storage
+const handleFileUpload = async (filePath: string, fileName: string): Promise<void | null> => {
+  try {
+    const contentType = mime.lookup(fileName) || 'application/octet-stream';
+    // Read file from the local disk
+    const fileData = fs.readFileSync(filePath);
 
+    // Upload file to Supabase storage
+    const { data, error } = await supabase.storage.from('uploads').upload(`uploads/${fileName}`, fileData, {
+      cacheControl: '3600',
+      upsert: false,
+      contentType,
+    });
+
+    if (error) {
+      console.error('Failed to upload file to Supabase:', error.message);
+      return null;
+    }
+
+    console.log('File uploaded successfully:', data);
+  } catch (err) {
+    console.error('Error handling file upload:', (err as Error).message);
+    return null;
+  } finally {
+    // Clean up temporary file
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  }
+};
 
 const router = express.Router();
 
