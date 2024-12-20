@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .bg {
+    background-color: #fcc857; /* Base color before background image */
+  }
+  
+  /* Background container for the full-page background image */
+  .background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/index_bg.png'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Keep the background behind the content */
+  }
+  
+  /* Overlay to give opacity on top of the background image */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with some transparency */
+    z-index: 0; /* Ensure overlay stays just above the background */
+  }
+  
+  /* Main content container styling */
+  .container {
+    z-index: 1;
+    position: relative; /* Ensure the content stays above the overlay */
+  }
+  
+  .welcome {
+    padding-top: 5vh;
+    font-size: 8.8vh;
+    color: white;
+    margin-left: 2vw;
+    margin-top: 9.6vh;
+    font-weight: 100;
+  }
+  
+  .geniu {
+    margin-top: -3vh;
+    font-size: 15vh;
+    color: white;
+    margin-left: 2vw;
+    font-weight: bolder;
+  }
+  
+  p,
+  .top {
+    font-size: 3.6vh;
+    color: white;
+    margin-left: 2vw;
+    font-weight: 100;
+    line-height: 2.5vh;
+  }
+  
+  .btn-cont {
+    margin-top: 30vh;
+    margin-left: 10vw;
+  }
+  
+  
+  #loginButton {
+    background-color: white;
+    color: #ffc857;
+    font-weight: bold;
+    border-radius: 40px;
+    padding: 10px 20px; 
+    transition: all 0.3s ease; 
+  }
+  
+  #loginButton:hover {
+    background-color: rgb(211, 211, 211);
+    color: #ffc146;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-5px); 
+  }
+  
+  
+  #createAccountButton {
+    background-color: #ffc146;
+    color: white;
+    border: 2px solid white;
+    font-weight: bold;
+    border-radius: 40px;
+    padding: 10px 20px; 
+    transition: all 0.3s ease; 
+  }
+  
+  #createAccountButton:hover {
+    background-color: #ffc857;
+    color: rgb(211, 211, 211);
+    border: 2px solid rgb(205, 205, 205);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-5px); 
+  }
+  
+  @media (max-width: 1024px) {
+    .welcome {
+      font-size: 6vh;
+      margin-left: 0;
+      margin-top: 2vh;
+    }
+  
+    .geniu {
+      font-size: 7vh;
+      margin-left: 0;
+    }
+  
+    .top,
+    p {
+      font-size: 2.4vh;
+      margin-left: 0;
+    }
+  
+    #createAccountButton {
+      margin-bottom: 10hv;
+    }
+  
+    .btn-cont {
+      margin-bottom: 10vh;
+      margin-top: 10vh;
+      margin-left: 0;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .welcome {
+      font-size: 6vh;
+      margin-left: 0;
+      margin-top: 2vh;
+    }
+  
+    .geniu {
+      font-size: 7vh;
+      margin-left: 0;
+    }
+  
+    .top,
+    p {
+      font-size: 2.4vh;
+      margin-left: 0;
+    }
+  
+    #createAccountButton {
+      margin-bottom: 10hv;
+    }
+  
+    .btn-cont {
+      margin-bottom: 10vh;
+      margin-top: 10vh;
+      margin-left: 0;
+    }
+  }
+  
+  
+  @media (max-width: 480px) {
+    .welcome {
+      font-size: 6vh;
+      margin-left: 0;
+      margin-top: 2vh;
+    }
+  
+    .geniu {
+      font-size: 7vh;
+      margin-left: 0;
+    }
+  
+    .top,
+    p {
+      font-size: 2.4vh;
+      margin-left: 0;
+    }
+  
+    #createAccountButton {
+      margin-bottom: 10hv;
+    }
+  
+    .btn-cont {
+      margin-bottom: 10vh;
+      margin-top: 10vh;
+      margin-left: 0;
+    }
+  }
+  
