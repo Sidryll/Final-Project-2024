@@ -6,7 +6,7 @@ const passwordInput = document.getElementById('password_input') as HTMLInputElem
 const signupButton = document.getElementById('signup_button') as HTMLButtonElement;
 const togglePassword = document.getElementById('togglePassword') as HTMLButtonElement;
 const toggleIcon = document.getElementById('toggleIcon') as HTMLImageElement;
-const profilePicture = document.getElementById('profile_picture') as HTMLInputElement;
+// const profilePicture = document.getElementById('profile_picture') as HTMLInputElement;
 
 const showIcon = 'src/images/show.png'; // Path to show icon
 const hideIcon = 'src/images/hide.png'; // Path to hide sicon
@@ -23,12 +23,18 @@ signupButton.addEventListener('click', async () => {
   const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-  const profilepicture = profilePicture.files?.[0];
+  // const profilepicture = profilePicture.files?.[0];
 
   try {
     // Validation
     if (!username || !email || !password) {
-      alert('Please fill in all the fields');
+      const incWarningMessage = document.getElementById('incomplete_fields_message');
+      if (incWarningMessage) {
+        incWarningMessage.style.display = 'block';  // Show the warning popup
+        setTimeout(() => {
+          incWarningMessage.style.display = 'none';
+        }, 1200);
+      }
       return;
     }
 
@@ -36,13 +42,12 @@ signupButton.addEventListener('click', async () => {
 
     if (!emailpattern.test(email)) {
       const invalidEmailMessage = document.getElementById('invalid_email_message')!;
-      invalidEmailMessage.style.display = 'flex';
-
-      const tryEmailButton = invalidEmailMessage.querySelector<HTMLButtonElement>('#try_email_again');
-      tryEmailButton?.addEventListener('click', () => {
-        invalidEmailMessage.style.display = 'none';
-      });
-
+      if (invalidEmailMessage) {
+        invalidEmailMessage.style.display = 'block';  // Show the warning popup
+        setTimeout(() => {
+          invalidEmailMessage.style.display = 'none';
+        }, 1200);
+      }
       return; // Exit function early since email is invalid
     }
 
@@ -50,7 +55,7 @@ signupButton.addEventListener('click', async () => {
     formData.append('UserName', username);
     formData.append('Email', email);
     formData.append('Password', password);
-    if (profilepicture) formData.append('ProfilePicture', profilepicture);
+    // if (profilepicture) formData.append('ProfilePicture', profilepicture);
 
     // Send data to the server
     const response = await fetch('http://localhost:3000/api/add-account', {
@@ -63,17 +68,45 @@ signupButton.addEventListener('click', async () => {
       console.log('Account added', newAccount);
       localStorage.setItem(`${newAccount.email}`, newAccount.userId);
       localStorage.setItem('logged-email', `${email}`);
-      alert(`Account created successfully! Welcome, ${newAccount.userName}.`);
-      // Clear input fields
-      usernameInput.value = '';
-      emailInput.value = '';
-      passwordInput.value = '';
-      profilePicture.value = '';
-      // Redirect to another page if necessary
-      window.location.href = 'upload_page/home_page.html';
+
+      function showCustomAlert(userName: string): void {
+        const signup_success = document.getElementById('signup_success') as HTMLDivElement;
+        const userNamePlaceholder = document.getElementById('userName') as HTMLSpanElement;
+        const signupMessage = document.getElementById('signupMessage') as HTMLParagraphElement;
+
+        if (signupMessage && userNamePlaceholder) {
+          userNamePlaceholder.textContent = userName;
+          signupMessage.textContent = `Account created successfully! Welcome, ${userName}.`;
+          
+          signup_success.style.display = 'block';
+          setTimeout(() => {
+            signup_success.style.display = 'none';
+          }, 2000);
+
+          usernameInput.value = '';
+          emailInput.value = '';
+          passwordInput.value = '';
+          // profilePicture.value = '';
+    
+          setTimeout(() => {
+            window.location.href = 'upload_page/home_page.html';
+          }, 2000);
+
+        } else {
+          console.error('alertMessage or userNamePlaceholder not found');
+        }
+      }
+      showCustomAlert(newAccount.userName)
+
     } else {
       console.error('Error adding account:', response.statusText);
-      alert('Failed to add account. Please try again.');
+      const inUsedWarningMessage = document.getElementById('email_in_use_message');
+      if (inUsedWarningMessage) {
+        inUsedWarningMessage.style.display = 'block'; 
+        setTimeout(() => {
+          inUsedWarningMessage.style.display = 'none';
+        }, 1200);
+      }
     }
   } catch (error) {
     console.log(process.env.DATABASE_URL);

@@ -34,7 +34,7 @@ const fetchSavedNotes = async (user_id: number) => {
 
                 <div class="notes_cont_box">
                   <button class="unsaved-button" data-id="${savedNote.saved_notes_id}">unSave</button>
-                  <a href="${savedNote.file_url}" class = "download_a"download title="Download"><button class="download_button">Preview</button></a>
+                  <a href="${savedNote.file_url}" download title="Download"><button class="download_button">Preview</button></a>
                   <img src="src/pdf.svg" alt="file type" class="file_type_img">
                   <p class="subject_cont"><strong>Subject:</strong>  ${savedNote.subject_name}</p>
                   <p class ="topic_cont"><strong>Topic:</strong> ${savedNote.topic}</p>

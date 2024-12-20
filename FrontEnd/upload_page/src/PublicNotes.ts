@@ -52,7 +52,6 @@ const fetchPublicNotes = async (): Promise<void> => {
 };
 
 // Render the notes on the page
-// Render the notes on the page
 const renderNotes = (notesToRender: Note[]): void => {
   const notesContainer: HTMLElement | null = document.getElementById('publicNotes');
   if (!notesContainer) return;
@@ -64,7 +63,7 @@ const renderNotes = (notesToRender: Note[]): void => {
       <li class="note">
         <div class="notes_cont_box">
           <button class="save-button" data-id="${note.note_id}">Save</button>
-          <a href="${note.file_url}" class = "download_a" download title="Download"><button class="download_button">Preview</button></a>
+          <a href="${note.file_url}" download title="Download"><button class="download_button">Preview</button></a>
           <img src="src/pdf.svg" alt="file type" class="file_type_img">
           <p class="subject_cont"><strong>Subject:</strong> ${note.subject_name}</p>
           <p class="topic_cont"><strong>Topic:</strong> ${note.topic}</p>
