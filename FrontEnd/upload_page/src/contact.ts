@@ -1,28 +1,32 @@
-const firstName = document.getElementById('first_name') as HTMLInputElement;
-const lastName = document.getElementById('last_name') as HTMLInputElement;
+import axios from 'axios';
+
+const FirstName = document.getElementById('FirstName') as HTMLInputElement;
+const LastName = document.getElementById('LastName') as HTMLInputElement;
 const email = document.getElementById('email') as HTMLInputElement;
-const phoneNumber = document.getElementById('phone_number') as HTMLInputElement;
+const message = document.getElementById('message') as HTMLTextAreaElement;
 const submitButton = document.getElementById('submit_button') as HTMLButtonElement;
-const field = document.getElementById('field') as HTMLTextAreaElement;
 
-submitButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    // implement submit functionality here:
-    if (
-        firstName.value === "" ||
-        lastName.value === "" ||
-        email.value === "" ||
-        phoneNumber.value === ""
+submitButton.addEventListener('click', async (event) => {
+  event.preventDefault();
+  // implement submit functionality here:
+  if (FirstName.value === '' || LastName.value === '' || email.value === '' || message.value === '') {
+    alert('Some fields are blank!');
+    return;
+  }
 
-    ) {
-        alert("Some fields are blank!")
-        return;
-    }
-    
-    console.log("first name: ", firstName.value);
-    console.log("last name: ", lastName.value);
-    console.log("email: ", email.value);
-    console.log("phone number: ", phoneNumber.value);
-    console.log("field: ,", field.value);
-    alert("form has been submitted!");
-})
+  console.log('First name: ', FirstName.value);
+  console.log('Last name: ', LastName.value);
+  console.log('email: ', email.value);
+  console.log('field: ,', message.value);
+
+  const response = await axios.post('http://localhost:3000/api/send-email', {
+    FirstName: FirstName.value,
+    LastName: LastName.value,
+    email: email.value,
+    message: message.value,
+  });
+
+  console.log(response.data);
+
+  alert('form has been submitted!');
+});

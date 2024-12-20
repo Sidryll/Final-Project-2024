@@ -1,169 +1,3 @@
-// document.addEventListener('DOMContentLoaded', () => {
-//   const uploadForm = document.getElementById('upload_form') as HTMLFormElement;
-
-//   uploadForm.addEventListener('submit', (event) => {
-//     event.preventDefault();
-
-//     const subjectInput = document.getElementById('subject_input') as HTMLInputElement;
-//     const topicInput = document.getElementById('topic_input') as HTMLInputElement;
-//     const fileInput = document.getElementById('file_upload') as HTMLInputElement;
-
-//     const subject = subjectInput.value;
-//     const topic = topicInput.value;
-//     const file = fileInput.files ? fileInput.files[0] : null;
-
-//     if (file) {
-//       // Create an entry for local storage
-//       const note = {
-//         subject,
-//         topic,
-//         fileName: file.name,
-//         dateAdded: new Date().toISOString(),
-//       };
-
-//       // Store the note in local storage
-//       const notes = JSON.parse(localStorage.getItem('notes') || '[]');
-//       notes.push(note);
-//       localStorage.setItem('notes', JSON.stringify(notes));
-
-//       // Optionally, reset the form
-//       uploadForm.reset();
-//       alert('Note uploaded successfully!');
-//     } else {
-//       console.error('No file selected.');
-//     }
-//   });
-// });
-
-// Define the interface for a note
-// interface Note {
-//   year: string;
-//   subject: string;
-//   topic: string;
-//   fileName: string;
-//   fileData: string | ArrayBuffer | null;
-//   dateAdded: Date;
-//   username: string;
-// }
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   const uploadForm = document.getElementById('upload_form') as HTMLFormElement;
-//   const yearSelect = document.getElementById('year') as HTMLSelectElement;
-//   const subjectInput = document.getElementById('subject_input') as HTMLSelectElement;
-//   // const notesContainer = document.querySelector('.notes_container') as HTMLDivElement;
-
-//   // Function to update subjects based on the selected year
-//   function updateSubjects(): void {
-//     const year = yearSelect.value;
-//     let subjects: string[] = [];
-
-//     if (year === 'first') {
-//       subjects = ['Calculus 1', 'Chemistry', 'Software Development 1', 'Physics', 'General Math'];
-//     } else if (year === 'second') {
-//       subjects = ['Algorithms', 'Data Structures', 'Linear Algebra', 'Operating Systems'];
-//     } else if (year === 'third') {
-//       subjects = ['Machine Learning', 'Computer Networks', 'Software Engineering'];
-//     } else if (year === 'fourth') {
-//       subjects = ['Capstone Project', 'Advanced Programming', 'Distributed Systems'];
-//     }
-
-//     subjectInput.innerHTML = '<option value="">Select Subject</option>';
-//     subjects.forEach((subject) => {
-//       const option = document.createElement('option');
-//       option.value = subject;
-//       option.textContent = subject;
-//       subjectInput.appendChild(option);
-//     });
-
-//     subjectInput.disabled = false;
-//   }
-
-//   yearSelect.addEventListener('change', updateSubjects);
-
-//   Function to display notes
-//   function displayNotes(): void {
-//     const notes: Note[] = JSON.parse(localStorage.getItem('notes') || '[]');
-//     notesContainer.innerHTML = '';
-
-//     if (notes.length === 0) {
-//       notesContainer.innerHTML = '<p>No notes uploaded yet.</p>';
-//       return;
-//     }
-
-//     notes.forEach((note) => {
-//       const noteBox = document.createElement('div');
-//       noteBox.classList.add('notes_cont_box');
-
-//       noteBox.innerHTML = `
-//         <button class="favorites">
-//             <!-- SVG Icon -->
-//         </button>
-//         <button class="download_button">
-//             <!-- SVG Icon -->
-//         </button>
-//         <img src="src/pdf.svg" alt="file type" class="file_type_img">
-//         <p class="subject_cont"><strong>Subject:</strong> ${note.subject}</p>
-//         <p class="topic_cont"><strong>Topic:</strong> ${note.topic}</p>
-//         <img src="src/profile_notes.svg" alt="profile" class="profile">
-//         <p class="user_name_cont">
-//             <strong class="username">${note.username || 'Anonymous'}</strong>
-//         </p>
-//       `;
-
-//       notesContainer.appendChild(noteBox);
-//     });
-//   }
-
-//   // Handle form submission
-//   uploadForm.addEventListener('submit', function (event: Event) {
-//     event.preventDefault();
-
-//     const year = yearSelect.value;
-//     const subject = subjectInput.value;
-//     const topic = (document.getElementById('topic_input') as HTMLInputElement).value;
-//     const fileUpload = (document.getElementById('file_upload') as HTMLInputElement).files?.[0];
-
-//     if (!year || !subject || !topic || !fileUpload) {
-//       alert('Please fill all fields and select a file.');
-//       return;
-//     }
-
-//     // Example username (replace with dynamic data if available)
-//     const username = 'Leander Galido';
-
-//     // Convert the file to Base64
-//     const reader = new FileReader();
-//     reader.onload = function (e) {
-//       const fileData = e.target?.result; // Base64 string
-
-//       const note: Note = {
-//         year: year,
-//         subject: subject,
-//         topic: topic,
-//         fileName: fileUpload.name,
-//         fileData: fileData,
-//         dateAdded: new Date(),
-//         username: username,
-//       };
-
-//       const notes: Note[] = JSON.parse(localStorage.getItem('notes') || '[]');
-//       notes.push(note);
-//       localStorage.setItem('notes', JSON.stringify(notes));
-
-//       uploadForm.reset();
-//       subjectInput.disabled = true;
-
-//       // Optionally, redirect to Index Page
-//       window.location.href = 'index.html';
-//     };
-
-//     reader.readAsDataURL(fileUpload);
-//   });
-
-//   // Optionally, display notes on the upload page
-//   // displayNotes();
-// });
-
 //Function for adding notes to the database
 document.addEventListener('DOMContentLoaded', () => {
   const uploadForm = document.getElementById('upload_form') as HTMLFormElement;
@@ -176,13 +10,77 @@ document.addEventListener('DOMContentLoaded', () => {
     let subjects: string[] = [];
 
     if (year === 'First-Year') {
-      subjects = ['EMath 1101', 'Chemistry', 'Software Development 1', 'Physics', 'General Math'];
-    } else if (year === 'second') {
-      subjects = ['Algorithms', 'Data Structures', 'Linear Algebra', 'Operating Systems'];
-    } else if (year === 'third') {
-      subjects = ['Machine Learning', 'Computer Networks', 'Software Engineering'];
-    } else if (year === 'fourth') {
-      subjects = ['Capstone Project', 'Advanced Programming', 'Distributed Systems'];
+      subjects = [
+        'EMath 1101',
+        'RE 1',
+        'SE 1121',
+        'SEAL 1',
+        'PATHFIT1 M',
+        'PATHFIT1 W',
+        'NSTP1-CWTS',
+        'GEMath 1',
+        'EMath 1101',
+        'EMath 1102',
+        'Engg 1001',
+        'GESocSci',
+        'EMath 1202',
+        'SEAL 2',
+        'Engg 1006',
+        'Engg 1009',
+        'PATHFIT2 M',
+        'PATHFIT2 W',
+        'NSTP2-CWTS',
+        'RE 2',
+        'EMath 1201',
+        'SE 1241',
+        'SE 1242',
+        'SE 1243',
+      ];
+    } else if (year === 'Second-Year') {
+      subjects = [
+        'EE 2121',
+        'SE 2141',
+        'SE 2142',
+        'SE 2143',
+        'SE 2144',
+        'SE 2145',
+        'EMath 2101',
+        'PATHFIT3 M',
+        'PATHFIT3 W',
+        'Emath 2103',
+        'SE 2236',
+        'SE 2237',
+        'SE 2238',
+        'SE 2239',
+        'SE 2240',
+        'GEHum 1',
+        'PATHFIT4 M',
+        'PATHFIT4 W',
+        'GEEng 1',
+        'GESocsci 3',
+      ];
+    } else if (year === 'Third-Year') {
+      subjects = [
+        'SE 3141',
+        'SE 3142',
+        'SE 3143',
+        'SE 3144',
+        'CESocsci 3',
+        'CETech1',
+        'CELit1',
+        'Engg 1025',
+        'SE 3241',
+        'SE 3242',
+        'SE 3243',
+        'SE 3244',
+        'GESocSci 4',
+        'GESocSci 5',
+        'GESocSci 1',
+        'Engg 1027',
+        'GESocSci 2',
+      ];
+    } else if (year === 'Fourth-Year') {
+      subjects = ['Engg 1030', 'Engg 1036', 'Engg 1037', 'SE 4141', 'SE 4142', 'SE TE 1', 'SE 4241', 'SE 4242', 'SE TE 2', 'SE TE 3', 'SE 4300'];
     }
 
     subjectInput.innerHTML = '<option value="">Select Subject</option>';
@@ -204,10 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const subject = subjectInput.value;
     // const year = (document.getElementById('year') as HTMLInputElement).value;
     // const subject = (document.getElementById('subject_input') as HTMLInputElement).value;
-    const topic = (document.getElementById('topic_input') as HTMLInputElement).value;
-    const fileInput = (document.getElementById('file_upload') as HTMLInputElement).files[0];
+    const topicInput = document.getElementById('topic_input') as HTMLInputElement;
+    const fileInput = document.getElementById('file_upload') as HTMLInputElement;
 
-    if (!year || !subject || !topic || !fileInput) {
+    if (!topicInput || !fileInput) {
+      alert('Please complete all fields before submitting.');
+      return;
+    }
+
+    const topic = topicInput.value;
+    const file = fileInput.files ? fileInput.files[0] : null;
+
+    if (!year || !subject || !topic || !file) {
       alert('Please complete all fields before submitting.');
       return;
     }
@@ -230,12 +136,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Format the date as YYYY-MM-DD
       const uploadDate = currentDate.toISOString().split('T')[0]; // Outputs: 'YYYY-MM-DD'
+      const logged_account = localStorage.getItem('logged-email');
+      const userId = logged_account ? localStorage.getItem(logged_account) : null;
+
+      if (!userId) {
+        console.error('User ID not found. Please log in.');
+        return;
+      }
 
       const formData = new FormData();
       formData.append('topic', topic);
-      formData.append('filepath', fileInput);
+      formData.append('filepath', file);
       formData.append('upload_date', uploadDate);
-      formData.append('user_id', String(1));
+      formData.append('user_id', userId);
       formData.append('yearlevel_id', yearLevelId);
       formData.append('subject_id', subjectId);
 

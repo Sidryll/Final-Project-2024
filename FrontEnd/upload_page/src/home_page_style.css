@@ -325,11 +325,165 @@ strong {
   background-color: white;
 }
 
+form {
+  display: flex;
+  flex-direction: column; /* Stack form elements vertically */
+  align-items: center; /* Center align form elements horizontally */
+  gap: 2vh; /* Add spacing between the stacked form elements */
+}
+
+.year_level {
+  margin-top: 4vh;
+}
+
+form {
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column; /* Stack form elements vertically */
+  align-items: center; /* Center align form elements horizontally */
+  gap: 2vh; /* Add spacing between the stacked form elements */
+}
+
+.year_level,
+.subjects_label {
+  background-color: #f4f4f4;
+  font-size: 1.6rem;
+}
+
+select {
+  height: 5.6vh;
+  width: 12vw;
+  outline: none;
+  border-radius: 4vh;
+  padding-left: 12px;
+  font-size: 1rem;
+}
+
+.subject_input {
+  height: 5.6vh;
+  width: 20vw;
+  outline: none;
+  border-radius: 4vh;
+  border: 1px solid;
+  text-indent: 12px;
+}
+/*--------------------------------------------------------------------------------*/
+/* General styling for the list container */
+#publicNotes {
+  height: 100%;
+  width: 100%;
+  background-color: #fcc857;
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; /* Allow items to wrap to the next row */
+  gap: 8px; /* Space between items and rows */
+}
+
+.note {
+  background-color: #fcc857;
+}
+
+.notes_lists {
+  background-color: #fcc857;
+}
+
+.notes_container {
+  margin-top: 16.4vh;
+  margin-left: 0.2vh;
+  display: flex;
+  flex-direction: row; /* Arrange .notes_cont_box elements horizontally */
+  flex-wrap: wrap; /* Allow wrapping of boxes if they exceed container width */
+  gap: 16px; /* Add space between each .notes_cont_box */
+}
+
+.notes_cont_box {
+  margin-top: 2vh;
+  left: 16vw;
+  top: 0;
+  height: 30vh;
+  width: 20vw;
+  border-radius: 2vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  padding: 10px;
+  position: relative;
+  flex: 0 0 auto; /* Ensure the box doesn't shrink or grow unexpectedly */
+  /* background-image: url("src/pdf.svg"); */
+  /* background-repeat: no-repeat; */
+  /* background-position: 16px 40px; */
+}
+
+.file_type_img {
+  position: absolute; /* Position the image relative to .subject_cont */
+  left: 24px;
+  top: 80px;
+  transform: translateY(-50%);
+  margin-right: 8px;
+  background-color: transparent;
+}
+
+.save-button {
+  margin-left: 16px;
+  height: 4vh;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  border: none;
+}
+
+.unsaved-button {
+  margin-left: 16px;
+  height: 4vh;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  border: none;
+}
+
+.download_button {
+  height: 2.8vh;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 132px;
+  top: 2px;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  border: none;
+}
+/* 
+.svg_icon_notes {
+  padding: 7.6px 0 0 12px;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+}
+
+.svg_icon_download {
+  padding: 12.8px 0 0 260px;
+  background-color: white;
+  outline: none;
+} */
+
+strong {
+  font-size: 2.8vh;
+  background-color: rgb(255, 255, 255);
+}
+
+.username {
+  margin: 40px 0 0 0;
+  font-size: 2.4vh;
+  background-color: rgb(255, 255, 255);
+}
+
 .subject_cont {
   height: 21px;
   background-color: transparent;
   position: absolute;
-  top: 44px;
+  top: 62px;
   left: 68px;
   font-size: 1rem;
 }
@@ -338,7 +492,7 @@ strong {
   height: 21px;
   background-color: transparent;
   position: absolute;
-  top: 68px;
+  top: 84px;
   left: 68px;
   font-size: 1rem;
 }
@@ -346,7 +500,7 @@ strong {
 .profile {
   position: absolute;
   left: 24px;
-  top: 188px;
+  top: 178px;
   transform: translateY(-50%);
   margin-right: 8px;
   background-color: transparent;
@@ -361,8 +515,42 @@ strong {
   height: 60px;
   background-color: transparent;
   position: absolute;
-  top: 140px;
+  top: 120px;
   left: 16px;
   font-size: 16px;
   padding-left: 40px;
+}
+
+.date_holder {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: light;
+  background-color: #ffffff;
+  font-size: 10px;
+  height: 1vh;
+}
+
+.date_cont {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: light;
+  font-size: 10px;
+  background-color: rgb(255, 255, 255);
+  margin-top: 172px;
+  margin-left: -242px;
+}
+.note {
+  background-color: #fcc857;
+}
+
+#myNotes {
+  background-color: #fcc857;
+  list-style: none; /* Removes the bullets */
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+}
+
+#savedNotes {
+  background-color: #fcc857;
+  list-style: none; /* Removes the bullets */
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
 }

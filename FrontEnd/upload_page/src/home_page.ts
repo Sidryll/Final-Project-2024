@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // Define the interface for a note
 interface Note {
   year?: string;
@@ -36,9 +38,33 @@ interface Note {
 
 // });
 
+// get the container for username and email
+const usernameDiv = document.getElementById('username') as HTMLInputElement;
+const emailDiv = document.getElementById('user_email') as HTMLInputElement;
+const changeUsernameButton = document.getElementById('change_username_button') as HTMLButtonElement;
+const usernameInput = document.getElementById('username_input') as HTMLInputElement;
+const email = localStorage.getItem('logged-email');
+
+changeUsernameButton.addEventListener('click', async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.put('http://localhost:3000/api/change-username', {
+      email,
+      username: usernameInput.value,
+    });
+    console.log('response: ', response);
+    alert('successfully changed username');
+    location.reload();
+  } catch {
+    alert('dunno number 2');
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   // Retrieve uploaded notes from localStorage using the correct key
   const notes: Note[] = JSON.parse(localStorage.getItem('notes') || '[]');
+
+  getUserData();
 
   // Get the container for displaying notes
   const notesContainer = document.querySelector<HTMLDivElement>('.notes_container');
@@ -50,16 +76,31 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  async function getUserData() {
+    try {
+      const response = await axios.post('http://localhost:3000/api/fetch-using-email', {
+        email, // Pass the email in the body
+      });
+
+      // Handle response
+      console.log('Response data:', response.data);
+      usernameDiv!.innerHTML = response.data.username;
+      emailDiv!.innerHTML = response.data.email;
+    } catch {
+      alert('hehe char para lng sa try');
+    }
+  }
+
   // Function to render filtered notes
   function renderNotes(filteredNotes: Note[]): void {
-    notesContainer.innerHTML = ''; // Clear current content
+    notesContainer!.innerHTML = ''; // Clear current content
 
     if (filteredNotes.length === 0) {
       const noFilesMessage = document.createElement('p');
       noFilesMessage.textContent = 'No files available for the selected filters.';
       noFilesMessage.style.textAlign = 'center';
       noFilesMessage.style.marginTop = '20px';
-      notesContainer.appendChild(noFilesMessage);
+      notesContainer!.appendChild(noFilesMessage);
       return;
     }
 
@@ -86,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       fileLink.appendChild(fileDiv);
-      notesContainer.appendChild(fileLink);
+      notesContainer!.appendChild(fileLink);
     });
   }
 

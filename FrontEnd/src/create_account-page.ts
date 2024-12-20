@@ -1,5 +1,4 @@
 // Create Account Page
-// import { User } from '../../FrontEnd/upload_page/src/account';
 
 const usernameInput = document.getElementById('username_input') as HTMLInputElement;
 const emailInput = document.getElementById('email_input') as HTMLInputElement;
@@ -24,36 +23,38 @@ signupButton.addEventListener('click', async () => {
   const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-  const profilepicture = profilePicture.files?.[0];
+  // const profilepicture = profilePicture.files?.[0];
 
+  // Validation
+  if (!username || !email || !password) {
+    alert('Please fill in all the fields');
+    return;
+  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailPattern.test(email)) {
+    const invalidEmailMessage = document.getElementById('invalid_email_message')!;
+    invalidEmailMessage.style.display = 'flex';
+
+    const tryEmailButton = invalidEmailMessage.querySelector<HTMLButtonElement>('#try_email_again');
+    tryEmailButton?.addEventListener('click', () => {
+      invalidEmailMessage.style.display = 'none';
+    });
+
+    return; // Exit function early since email is invalid
+  }
+
+  const formData = new FormData();
+  formData.append('UserName', username);
+  formData.append('Email', email);
+  formData.append('Password', password);
+
+  if (profilePicture.files && profilePicture.files[0]) {
+    formData.append('ProfilePicture', profilePicture.files[0]);
+  }
+
+  // Send data to the server
   try {
-    // Validation
-    if (!username || !email || !password) {
-      alert('Please fill in all the fields');
-      return;
-    }
-
-    const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailpattern.test(email)) {
-      const invalidEmailMessage = document.getElementById('invalid_email_message')!;
-      invalidEmailMessage.style.display = 'flex';
-
-      const tryEmailButton = invalidEmailMessage.querySelector<HTMLButtonElement>('#try_email_again');
-      tryEmailButton?.addEventListener('click', () => {
-        invalidEmailMessage.style.display = 'none';
-      });
-
-      return; // Exit function early since email is invalid
-    }
-
-    const formData = new FormData();
-    formData.append('UserName', username);
-    formData.append('Email', email);
-    formData.append('Password', password);
-    if (profilepicture) formData.append('ProfilePicture', profilepicture);
-
-    // Send data to the server
     const response = await fetch('http://localhost:3000/api/add-account', {
       method: 'POST',
       body: formData,
@@ -62,7 +63,8 @@ signupButton.addEventListener('click', async () => {
     if (response.ok) {
       const newAccount = await response.json();
       console.log('Account added', newAccount);
-      alert(`Account created successfully! Welcome, ${newAccount.username}.`);
+      localStorage.setItem(`${newAccount.email}`, newAccount.userId);
+      alert(`Account created successfully! Welcome, ${newAccount.userName}.`);
       // Clear input fields
       usernameInput.value = '';
       emailInput.value = '';
@@ -75,8 +77,6 @@ signupButton.addEventListener('click', async () => {
       alert('Failed to add account. Please try again.');
     }
   } catch (error) {
-    console.log(process.env.DATABASE_URL);
-
     console.error('Error:', error);
     alert('An error occurred while creating the account. Please try again later.');
   }

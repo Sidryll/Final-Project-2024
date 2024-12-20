@@ -73,7 +73,7 @@ loginButton.addEventListener('click', async () => {
         }
         return;
       }
-
+      localStorage.setItem('logged-email', `${email}`);
       alert('Login successful! Welcome back.');
 
       emailInput.value = '';
