@@ -5,6 +5,7 @@ import express, { Request, Response } from 'express';
 import pool from './db';
 import multer from 'multer';
 import path from 'path';
+import mime from 'mime-types';
 
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
@@ -31,7 +32,7 @@ const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
     // File type validation (only allow images)
-    const filetypes = /jpeg|jpg|png|gif|pdf|/;
+    const filetypes = /jpeg|jpg|png|gif|pdf|application\/vnd.openxmlformats-officedocument.presentationml.presentation|application\/vnd.openxmlformats-officedocument.wordprocessingml.document/;
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
@@ -46,6 +47,7 @@ const upload = multer({
 //Direct file upload to remote storage
 const handleFileUpload = async (filePath: string, fileName: string): Promise<void | null> => {
   try {
+    const contentType = mime.lookup(fileName) || 'application/octet-stream';
     // Read file from the local disk
     const fileData = fs.readFileSync(filePath);
 
@@ -53,6 +55,7 @@ const handleFileUpload = async (filePath: string, fileName: string): Promise<voi
     const { data, error } = await supabase.storage.from('uploads').upload(`uploads/${fileName}`, fileData, {
       cacheControl: '3600',
       upsert: false,
+      contentType,
     });
 
     if (error) {
@@ -360,9 +363,23 @@ router.get('/search-notes', async (req: Request, res: Response) => {
 router.get('/display-notes', async (req: Request, res: Response) => {
   try {
     const results = await pool.query(
-      'SELECT note.*, subject.subject_name, users.username FROM note INNER JOIN subject ON note.subject_id = subject.subject_id INNER JOIN users ON note.user_id = users.user_id;'
+      `SELECT 
+         note.*, 
+         subject.subject_name, 
+         users.username 
+       FROM note 
+       INNER JOIN subject ON note.subject_id = subject.subject_id 
+       INNER JOIN users ON note.user_id = users.user_id;`
     );
-    res.json(results.rows);
+
+    // Construct the full URL for each note
+    const baseUrl = 'https://pvgddxeevqhhdwcihwqp.supabase.co/storage/v1/object/public/uploads/';
+    const notesWithUrls = results.rows.map((note) => ({
+      ...note,
+      file_url: note.filepath ? `${baseUrl}${note.filepath}` : null,
+    }));
+
+    res.json(notesWithUrls);
   } catch (error) {
     console.error('Error fetching notes:', error);
     res.status(500).send('Failed to fetch notes.');
