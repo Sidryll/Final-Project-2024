@@ -27,53 +27,10 @@ const storage = multer.diskStorage({
   },
 });
 
-// Initialize Multer with the storage configuration
-const upload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    // File type validation (only allow images)
-    const filetypes = /jpeg|jpg|png|gif|pdf|application\/vnd.openxmlformats-officedocument.presentationml.presentation|application\/vnd.openxmlformats-officedocument.wordprocessingml.document/;
-    const mimetype = filetypes.test(file.mimetype);
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
-    if (mimetype && extname) {
-      return cb(null, true);
-    } else {
-      cb(new Error('Invalid file type'));
-    }
-  },
-});
 
 //Direct file upload to remote storage
-const handleFileUpload = async (filePath: string, fileName: string): Promise<void | null> => {
-  try {
-    const contentType = mime.lookup(fileName) || 'application/octet-stream';
-    // Read file from the local disk
-    const fileData = fs.readFileSync(filePath);
 
-    // Upload file to Supabase storage
-    const { data, error } = await supabase.storage.from('uploads').upload(`uploads/${fileName}`, fileData, {
-      cacheControl: '3600',
-      upsert: false,
-      contentType,
-    });
-
-    if (error) {
-      console.error('Failed to upload file to Supabase:', error.message);
-      return null;
-    }
-
-    console.log('File uploaded successfully:', data);
-  } catch (err) {
-    console.error('Error handling file upload:', (err as Error).message);
-    return null;
-  } finally {
-    // Clean up temporary file
-    if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-    }
-  }
-};
 
 const router = express.Router();
 
@@ -461,5 +418,29 @@ router.get('/display-saved_notes', async (req: Request, res: Response): Promise<
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+
+// Route for saving a note
+router.post('/save-note', async (req: Request, res: Response): Promise<void> => {
+  const { note_id, user_id } = req.body;
+
+  if (!note_id || !user_id) {
+    res.status(400).json({ message: 'note_id and user_id are required' });
+    return;
+  }
+
+  try {
+    const result = await pool.query('INSERT INTO saved_notes (note_id, user_id) VALUES ($1, $2) RETURNING *', [note_id, user_id]);
+    res.status(201).json({
+      message: 'Note saved successfully',
+      savedNote: result.rows[0],
+    });
+  } catch (error) {
+    console.error('Error saving note:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 
 export default router;

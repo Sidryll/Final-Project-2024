@@ -346,6 +346,22 @@ select {
   outline: none;
   border: none;
 }
+
+.download_a {
+  margin-left: 8px;
+}
+
+.delete-button {
+  position: absolute;
+  height: 2.8vh;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 200px;
+  top: 12px;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  border: none;
+}
 /* 
 .svg_icon_notes {
   padding: 7.6px 0 0 12px;
