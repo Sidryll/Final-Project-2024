@@ -16,4 +16,3 @@ export function saveUsers(users: User[]): void {
 }
 
 export const users: User[] = loadUsers();
-

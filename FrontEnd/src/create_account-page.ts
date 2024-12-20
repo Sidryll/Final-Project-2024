@@ -23,28 +23,26 @@ signupButton.addEventListener('click', async () => {
   const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-  const profilepicture = profilePicture.files?.[0];
+  // const profilepicture = profilePicture.files?.[0];
 
-  try {
-    // Validation
-    if (!username || !email || !password) {
-      alert('Please fill in all the fields');
-      return;
-    }
-
+  // Validation
+  if (!username || !email || !password) {
+    alert('Please fill in all the fields');
+    return;
+  }
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailPattern.test(email)) {
     const invalidEmailMessage = document.getElementById('invalid_email_message')!;
     invalidEmailMessage.style.display = 'flex';
 
-      const tryEmailButton = invalidEmailMessage.querySelector<HTMLButtonElement>('#try_email_again');
-      tryEmailButton?.addEventListener('click', () => {
-        invalidEmailMessage.style.display = 'none';
-      });
+    const tryEmailButton = invalidEmailMessage.querySelector<HTMLButtonElement>('#try_email_again');
+    tryEmailButton?.addEventListener('click', () => {
+      invalidEmailMessage.style.display = 'none';
+    });
 
-      return; // Exit function early since email is invalid
-    }
+    return; // Exit function early since email is invalid
+  }
 
   const formData = new FormData();
   formData.append('UserName', username);
