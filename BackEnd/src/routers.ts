@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import pool from './db';
 import multer from 'multer';
 import path from 'path';
+import sendEmail from './send-email';
 
 // Set up Multer storage configuration
 const storage = multer.diskStorage({
@@ -103,7 +104,6 @@ router.post('/validate-account', async (req: Request, res: Response): Promise<vo
 });
 
 //Router for fetching data about the logged in user
-
 router.post('/fetch-using-email', async (req: Request, res: Response) => {
   const { email } = req.body;
   try {
@@ -457,5 +457,16 @@ router.put('/change-username', async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Internal Server Error.' });
   }
 });
+
+router.post('/send-email', async (req: Request, res: Response) => {
+  try {
+    const { FirstName, LastName, email, message } = req.body;
+    await sendEmail(FirstName, LastName, email, message)
+    res.status(200).send("message sent!")
+  } catch (error) {
+    console.log(error)
+    res.status(500).send("something went wrong")
+  }
+})
 
 export default router;

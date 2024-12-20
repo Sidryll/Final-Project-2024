@@ -48,7 +48,7 @@ const email = localStorage.getItem('logged-email');
 changeUsernameButton.addEventListener('click', async (e) => {
   e.preventDefault();
   if (usernameInput.value === '') {
-    alert("Please enter a valid username")
+    alert('Please enter a valid username');
     return;
   }
   try {
@@ -60,7 +60,7 @@ changeUsernameButton.addEventListener('click', async (e) => {
     alert('successfully changed username');
     location.reload();
   } catch {
-    alert('dunno number 2');
+    alert('guba backend');
   }
 });
 
