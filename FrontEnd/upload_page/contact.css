@@ -32,7 +32,7 @@ input[type='text'],
 input[type='email'],
 input[type='tel'],
 textarea {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
@@ -40,6 +40,12 @@ textarea {
 }
 textarea {
   height: 100px;
+  width: 85%;
+  padding: 30px;
+  resize: none;
+  margin-bottom: 35px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 .submit-btn {
   background-color: #fcc857;
