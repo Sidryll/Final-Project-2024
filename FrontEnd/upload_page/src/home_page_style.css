@@ -315,6 +315,16 @@ select {
   border: none;
 }
 
+.delete-button {
+  margin-left: 16px;
+  height: 4vh;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+  border: none;
+}
+
 .unsaved-button {
   margin-left: 16px;
   height: 4vh;

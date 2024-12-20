@@ -44,7 +44,7 @@ const fetchSavedNotes = async (user_id: number) => {
                 </div>
             `;
 
-      const unSaveButton = noteElement.querySelector('.unsave-button') as HTMLButtonElement;
+      const unSaveButton = noteElement.querySelector('.unsaved-button') as HTMLButtonElement;
       if (unSaveButton) {
         unSaveButton.addEventListener('click', () => {
           const saved_notes_id = parseInt(unSaveButton.getAttribute('data-id') || '', 10);
@@ -54,6 +54,21 @@ const fetchSavedNotes = async (user_id: number) => {
           }
         });
       }
+
+      // Add event listeners to the download buttons
+      const download_button = () => {
+        const downloadButtons = document.querySelectorAll('.download_button');
+        downloadButtons.forEach(button => {
+          const noteId = parseInt(button.getAttribute('data-id') as string, 10);
+          button.addEventListener('click', () => {
+            downloadNoteHandlerSave(noteId);  // Trigger the download handler
+          });
+        });
+      };
+
+      // Initialize download buttons
+      download_button();
+
       notesContainer.appendChild(noteElement);
     });
   } catch (error) {
