@@ -104,6 +104,17 @@ router.post('/validate-account', async (req: Request, res: Response): Promise<vo
 
 //Router for fetching data about the logged in user
 
+router.post('/fetch-using-email', async (req: Request, res: Response) => {
+  const { email } = req.body;
+  try {
+    const query = 'SELECT * FROM users WHERE email = $1';
+    const result = await pool.query(query, [email]);
+    res.status(201).json(result.rows[0]);
+  } catch {
+    res.status(500).json({ message: 'Internal Server Error.' });
+  }
+});
+
 router.get('/fetch-userData', async (req: Request, res: Response): Promise<void> => {
   const { userID } = req.query;
 
@@ -437,7 +448,6 @@ router.post('/change-password', async (req: Request, res: Response): Promise<voi
 
 router.put('/change-username', async (req: Request, res: Response) => {
   const { username, email } = req.body;
-
   try {
     const query = 'UPDATE users SET username = $1 WHERE email = $2';
     const values = [username, email];
