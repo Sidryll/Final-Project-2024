@@ -403,7 +403,7 @@ router.post('/change-password', async (req: Request, res: Response): Promise<voi
     }
 
     // Check if the user exists in the database
-    const userQuery = 'SELECT user_id, user_password FROM users WHERE email = $1'; 
+    const userQuery = 'SELECT user_id, user_password FROM users WHERE email = $1';
     const userResult = await pool.query(userQuery, [email]);
 
     if (userResult.rows.length === 0) {
@@ -414,7 +414,7 @@ router.post('/change-password', async (req: Request, res: Response): Promise<voi
     const user = userResult.rows[0];
 
     // Verify the old password
-    const isMatch = await bcrypt.compare(oldPassword, user.user_password); 
+    const isMatch = await bcrypt.compare(oldPassword, user.user_password);
     if (!isMatch) {
       res.status(401).json({ message: 'Current password is incorrect.' });
       return;
@@ -425,13 +425,26 @@ router.post('/change-password', async (req: Request, res: Response): Promise<voi
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
     // Update the password in the database
-    const updateQuery = 'UPDATE users SET user_password = $1 WHERE user_id = $2'; 
-    await pool.query(updateQuery, [hashedPassword, user.user_id]); 
+    const updateQuery = 'UPDATE users SET user_password = $1 WHERE user_id = $2';
+    await pool.query(updateQuery, [hashedPassword, user.user_id]);
 
     res.status(200).json({ message: 'Password updated successfully.' });
   } catch (error) {
     console.error('Error updating password:', error);
     res.status(500).json({ message: 'Internal server error.' });
+  }
+});
+
+router.put('/change-username', async (req: Request, res: Response) => {
+  const { username, email } = req.body;
+
+  try {
+    const query = 'UPDATE users SET username = $1 WHERE email = $2';
+    const values = [username, email];
+    await pool.query(query, values);
+    res.status(200).json({ message: 'username updated!' });
+  } catch {
+    res.status(500).json({ message: 'Internal Server Error.' });
   }
 });
 

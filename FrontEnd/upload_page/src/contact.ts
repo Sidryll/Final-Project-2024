@@ -9,7 +9,7 @@ const submitButton = document.getElementById('submit_button') as HTMLButtonEleme
 submitButton.addEventListener('click', async (event) => {
   event.preventDefault();
   // implement submit functionality here:
-  if (FirstName.value === '' ||LastName.value === '' || email.value === '' || message.value === '') {
+  if (FirstName.value === '' || LastName.value === '' || email.value === '' || message.value === '') {
     alert('Some fields are blank!');
     return;
   }

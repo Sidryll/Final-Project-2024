@@ -1,16 +1,13 @@
-
-*{
-
-  background-color:#f9f9f9
+* {
+  background-color: #f9f9f9;
 }
-
 
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   margin: 0;
   padding: 20px;
-  background-color: #fcc857
+  background-color: #fcc857;
 }
 .container {
   display: flex;
@@ -187,5 +184,3 @@ svg {
   color: white;
   background-color: white;
 }
-
-

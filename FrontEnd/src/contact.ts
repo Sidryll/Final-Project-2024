@@ -6,23 +6,17 @@ const submitButton = document.getElementById('submit_button') as HTMLButtonEleme
 const field = document.getElementById('field') as HTMLTextAreaElement;
 
 submitButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    // implement submit functionality here:
-    if (
-        firstName.value === "" ||
-        lastName.value === "" ||
-        email.value === "" ||
-        phoneNumber.value === ""
+  event.preventDefault();
+  // implement submit functionality here:
+  if (firstName.value === '' || lastName.value === '' || email.value === '' || phoneNumber.value === '') {
+    alert('Some fields are blank!');
+    return;
+  }
 
-    ) {
-        alert("Some fields are blank!")
-        return;
-    }
-    
-    console.log("first name: ", firstName.value);
-    console.log("last name: ", lastName.value);
-    console.log("email: ", email.value);
-    console.log("phone number: ", phoneNumber.value);
-    console.log("field: ,", field.value);
-    alert("form has been submitted!");
-})
+  console.log('first name: ', firstName.value);
+  console.log('last name: ', lastName.value);
+  console.log('email: ', email.value);
+  console.log('phone number: ', phoneNumber.value);
+  console.log('field: ,', field.value);
+  alert('form has been submitted!');
+});
