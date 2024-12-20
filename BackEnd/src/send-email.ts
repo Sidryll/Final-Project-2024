@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-export default async function sendEmail(FirstName: string,LastName:string, email: string, message: string) {
+export default async function sendEmail(FirstName: string, LastName: string, email: string, message: string) {
   try {
     const transporter = nodemailer.createTransport({
       service: 'Gmail',

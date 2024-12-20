@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
+    <title>Upload Page</title>
+</head>
+<body>
+    <div id="app"></div>
+    <div class="header">
+      <nav class="nav_div">
+          <div class="logo">Geniu<span class = "share">Share</span></div>
+          <div class="search">
+              <input class="search_input" type="search" placeholder="Search">      
+          </div>
+
+        
+          <ul class = "about_info">
+              <li><a href="about.html" class = "about">About Us</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+          </ul>           
+
+              <div class = "nav_buttons_container">
+                  <ul>
+                      <li>
+                          <a href="i.html" class = "i_button">
+                          <svg  width="24" height="24" viewBox="0 0 49 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M24.5 0C19.6544 0 14.9175 1.26095 10.8885 3.6234C6.85953 5.98585 3.71931 9.34369 1.86496 13.2723C0.0106155 17.2009 -0.474566 21.5238 0.470772 25.6944C1.41611 29.865 3.74951 33.696 7.17589 36.7028C10.6023 39.7096 14.9678 41.7573 19.7203 42.5869C24.4728 43.4165 29.399 42.9907 33.8757 41.3634C38.3525 39.7361 42.1789 36.9804 44.871 33.4448C47.5631 29.9091 49 25.7523 49 21.5C48.9931 15.7997 46.4097 10.3346 41.8165 6.30385C37.2234 2.27312 30.9957 0.00601962 24.5 0ZM24.5 39.6923C20.3998 39.6923 16.3918 38.6253 12.9826 36.6263C9.57345 34.6273 6.91634 31.7861 5.34728 28.4619C3.77821 25.1377 3.36768 21.4798 4.16758 17.9509C4.96748 14.4219 6.94189 11.1803 9.84114 8.63609C12.7404 6.09186 16.4343 4.35921 20.4556 3.65725C24.477 2.9553 28.6453 3.31557 32.4333 4.6925C36.2214 6.06943 39.4591 8.40118 41.737 11.3929C44.0149 14.3846 45.2308 17.9019 45.2308 21.5C45.2245 26.3232 43.0384 30.9473 39.152 34.3579C35.2656 37.7684 29.9962 39.6868 24.5 39.6923ZM28.2692 31.4231C28.2692 31.8617 28.0707 32.2824 27.7172 32.5925C27.3638 32.9027 26.8845 33.0769 26.3846 33.0769C25.385 33.0769 24.4262 32.7284 23.7194 32.1081C23.0125 31.4878 22.6154 30.6465 22.6154 29.7692V21.5C22.1156 21.5 21.6362 21.3258 21.2828 21.0156C20.9293 20.7054 20.7308 20.2848 20.7308 19.8461C20.7308 19.4075 20.9293 18.9869 21.2828 18.6767C21.6362 18.3665 22.1156 18.1923 22.6154 18.1923C23.6151 18.1923 24.5738 18.5408 25.2806 19.1611C25.9875 19.7814 26.3846 20.6227 26.3846 21.5V29.7692C26.8845 29.7692 27.3638 29.9435 27.7172 30.2536C28.0707 30.5638 28.2692 30.9844 28.2692 31.4231ZM20.7308 12.4038C20.7308 11.9132 20.8966 11.4336 21.2072 11.0256C21.5178 10.6176 21.9593 10.2997 22.4759 10.1119C22.9924 9.92415 23.5608 9.87502 24.1092 9.97074C24.6576 10.0665 25.1613 10.3027 25.5566 10.6497C25.952 10.9966 26.2212 11.4386 26.3303 11.9199C26.4394 12.4011 26.3834 12.8999 26.1694 13.3532C25.9555 13.8065 25.5931 14.1939 25.1283 14.4665C24.6634 14.7391 24.1168 14.8846 23.5577 14.8846C22.808 14.8846 22.0889 14.6232 21.5588 14.158C21.0286 13.6928 20.7308 13.0618 20.7308 12.4038Z" fill="black"/>
+                          </svg>
+                          </a></li>
+                       
+                          <li><a href="notif.html" class = "bell_button">
+                              <svg width="24" height="24" viewBox="0 0 49 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M48.444 31.412C47.0273 29.4356 44.9215 23.8433 44.9215 16.5392C44.9215 12.1527 42.7701 7.94591 38.9405 4.84421C35.111 1.74252 29.917 0 24.5013 0C19.0855 0 13.8915 1.74252 10.062 4.84421C6.23249 7.94591 4.08108 12.1527 4.08108 16.5392C4.08108 23.8454 1.9727 29.4356 0.556044 31.412C0.194276 31.9145 0.00248946 32.4853 2.40728e-05 33.067C-0.00244132 33.6487 0.184502 34.2206 0.542002 34.725C0.899502 35.2295 1.41492 35.6487 2.03627 35.9403C2.65762 36.232 3.36293 36.3858 4.08108 36.3862H14.4979C14.9691 38.2534 16.222 39.9315 18.0447 41.1366C19.8675 42.3418 22.1483 43 24.5013 43C26.8543 43 29.135 42.3418 30.9578 41.1366C32.7806 39.9315 34.0335 38.2534 34.5046 36.3862H44.9215C45.6394 36.3854 46.3444 36.2313 46.9654 35.9396C47.5864 35.6478 48.1014 35.2285 48.4586 34.7241C48.8158 34.2197 49.0025 33.648 49 33.0665C48.9974 32.485 48.8056 31.9143 48.444 31.412ZM24.5013 39.694C23.2348 39.6937 21.9995 39.3755 20.9655 38.7831C19.9315 38.1907 19.1496 37.3533 18.7275 36.3862H30.2751C29.8529 37.3533 29.071 38.1907 28.037 38.7831C27.003 39.3755 25.7678 39.6937 24.5013 39.694ZM4.08108 33.0784C6.04652 30.3411 8.16512 23.9983 8.16512 16.5392C8.16512 13.03 9.88624 9.66456 12.9499 7.18321C16.0135 4.70185 20.1687 3.30784 24.5013 3.30784C28.8339 3.30784 32.9891 4.70185 36.0527 7.18321C39.1163 9.66456 40.8374 13.03 40.8374 16.5392C40.8374 23.9921 42.9509 30.3349 44.9215 33.0784H4.08108Z" fill="black"/>
+                              </svg>             
+                          </a></li>
+          
+                          <li><a href="user_profile.html" class = "user_profile">
+                              <svg  width="24" height="24"  viewBox="0 0 49 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M24.5 0C19.6544 0 14.9175 1.26095 10.8885 3.6234C6.85953 5.98585 3.71931 9.34369 1.86496 13.2723C0.0106155 17.2009 -0.474566 21.5238 0.470772 25.6944C1.41611 29.865 3.74951 33.696 7.17589 36.7028C10.6023 39.7096 14.9678 41.7573 19.7203 42.5869C24.4728 43.4165 29.399 42.9907 33.8757 41.3634C38.3525 39.7361 42.1789 36.9804 44.871 33.4448C47.5631 29.9091 49 25.7523 49 21.5C48.9931 15.7997 46.4097 10.3346 41.8165 6.30385C37.2234 2.27312 30.9957 0.00601962 24.5 0ZM11.7977 35.8678C13.1611 33.9966 15.0393 32.4568 17.2591 31.3901C19.479 30.3235 21.9691 29.7644 24.5 29.7644C27.0309 29.7644 29.521 30.3235 31.7409 31.3901C33.9608 32.4568 35.8389 33.9966 37.2023 35.8678C33.5705 38.3465 29.1009 39.6922 24.5 39.6922C19.8991 39.6922 15.4295 38.3465 11.7977 35.8678ZM16.9615 19.8461C16.9615 18.5378 17.4037 17.2587 18.232 16.1708C19.0603 15.0829 20.2377 14.235 21.6152 13.7343C22.9926 13.2336 24.5084 13.1026 25.9707 13.3579C27.433 13.6131 28.7762 14.2432 29.8305 15.1684C30.8848 16.0935 31.6027 17.2723 31.8936 18.5556C32.1845 19.8388 32.0352 21.1689 31.4646 22.3777C30.8941 23.5865 29.9278 24.6197 28.6881 25.3466C27.4485 26.0735 25.991 26.4615 24.5 26.4615C22.5007 26.4615 20.5832 25.7646 19.1695 24.5239C17.7558 23.2833 16.9615 21.6007 16.9615 19.8461ZM39.9915 33.5751C37.8896 30.9023 34.9341 28.8344 31.4966 27.6316C33.3431 26.3554 34.6905 24.6059 35.3514 22.6265C36.0124 20.647 35.954 18.5361 35.1844 16.5871C34.4148 14.6382 32.9723 12.9481 31.0574 11.752C29.1425 10.5559 26.8505 9.91311 24.5 9.91311C22.1496 9.91311 19.8575 10.5559 17.9426 11.752C16.0278 12.9481 14.5852 14.6382 13.8156 16.5871C13.046 18.5361 12.9876 20.647 13.6486 22.6265C14.3095 24.6059 15.6569 26.3554 17.5034 27.6316C14.0659 28.8344 11.1104 30.9023 9.00847 33.5751C6.3525 30.9541 4.61654 27.7152 4.00964 24.2485C3.40273 20.7817 3.95074 17.2349 5.5877 14.0352C7.22465 10.8354 9.88075 8.1191 13.2361 6.21337C16.5915 4.30764 20.5032 3.29373 24.5 3.29373C28.4968 3.29373 32.4085 4.30764 35.7639 6.21337C39.1193 8.1191 41.7754 10.8354 43.4123 14.0352C45.0493 17.2349 45.5973 20.7817 44.9904 24.2485C44.3835 27.7152 42.6475 30.9541 39.9915 33.5751Z" fill="black"/>
+                              </svg>              
+                          </a>
+                      </li>
+                  </ul>
+              </div> 
+      </nav>     
+  </div>
+
+    <div class="up_label">
+        <h2 class="label">Share your file.</h2>
+    </div>
+
+    <div class="upload_file_form_cont">
+        <form id="upload_form">
+            <!-- <input type="text" class="subject_input" id="subject_input" placeholder="Please type subject name" required>
+            <input type="text" class="subject_input" id="topic_input" placeholder="Please type specific topic" required>
+            <input type="file" class="file_input" id="file_upload" required> -->
+
+            <label for="year" class = "year_level">Select Year:</label>
+            <select id="year">
+                <option value="">Select Year</option>
+                <option value="first">First Year</option>
+                <option value="second">Second Year</option>
+                <option value="third">Third Year</option>
+                <option value="fourth">Fourth Year</option>
+            </select>
+
+            <label for="subjects" class = "subjects_label">Select Subject:</label>
+            <select id="subject_input" disabled required>
+                <option value="">Select Subject</option>
+              </select>
+            
+            <label for="topic" class = "subjects_label">Input speciic topic:</label>
+            <input type="text" class="subject_input" id="topic_input" required>
+            <input type="file" class="file_input" id="file_upload" required>
+
+
+            <button type="submit" class="submit_button" id="submit_butt">Share Note</button>
+        </form>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const uploadForm = document.getElementById('upload_form');
+    const yearSelect = document.getElementById('year');
+    const subjectInput = document.getElementById('subject_input');
+    const notesContainer = document.getElementById('notes_container');
+
+    // Function to update subjects based on selected year
+    function updateSubjects() {
+        const year = yearSelect.value;
+        let subjects = [];
+
+        if (year === 'first') {
+            subjects = ["Calculus 1", "Chemistry", "Software Development 1", "Physics", "General Math"];
+        } else if (year === 'second') {
+            subjects = ["Algorithms", "Data Structures", "Linear Algebra", "Operating Systems"];
+        } else if (year === 'third') {
+            subjects = ["Machine Learning", "Computer Networks", "Software Engineering"];
+        } else if (year === 'fourth') {
+            subjects = ["Capstone Project", "Advanced Programming", "Distributed Systems"];
+        }
+
+        subjectInput.innerHTML = '<option value="">Select Subject</option>';
+        subjects.forEach(subject => {
+            const option = document.createElement('option');
+            option.value = subject;
+            option.textContent = subject;
+            subjectInput.appendChild(option);
+        });
+
+        subjectInput.disabled = false;
+    }
+
+    yearSelect.addEventListener('change', updateSubjects);
+
+    // Display existing notes from localStorage
+    function displayNotes() {
+        const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        notesContainer.innerHTML = '';
+
+        if (notes.length === 0) {
+            notesContainer.innerHTML = '<p>No notes uploaded yet.</p>';
+        } else {
+            notes.forEach(note => {
+                const noteDiv = document.createElement('div');
+                noteDiv.classList.add('note_item');
+                noteDiv.innerHTML = `
+                    <h3>${note.subject}</h3>
+                    <p>Year: ${note.year}</p>
+                    <p>File: ${note.fileName}</p>
+                    <p>Added on: ${new Date(note.dateAdded).toLocaleString()}</p>
+                `;
+                notesContainer.appendChild(noteDiv);
+            });
+        }
+    }
+
+    // Handle form submission
+    uploadForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const year = yearSelect.value;
+        const subject = subjectInput.value;
+        const topic = document.getElementById('topic_input').value;
+        const fileUpload = document.getElementById('file_upload').files[0];
+
+        if (!year || !subject || !topic || !fileUpload) {
+            alert('Please fill all fields and select a file.');
+            return;
+        }
+
+        const note = {
+            year: year,
+            subject: subject,
+            topic: topic,
+            fileName: fileUpload.name,
+            dateAdded: new Date(),
+        };
+
+        const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+        notes.push(note);
+        localStorage.setItem('notes', JSON.stringify(notes));
+
+        uploadForm.reset();
+        subjectInput.disabled = true;
+
+        displayNotes();
+    });
+
+    // Load notes when the page loads
+    displayNotes();
+});
+
+    </script>
+    
+</body>
+</html>
