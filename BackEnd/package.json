@@ -8,6 +8,9 @@
     "start": "ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "serve": "node dist/index.js"
+    "start": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "serve": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

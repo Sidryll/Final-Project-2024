@@ -9,7 +9,7 @@ const toggleIcon = document.getElementById('toggleIcon') as HTMLImageElement;
 const profilePicture = document.getElementById('profile_picture') as HTMLInputElement;
 
 const showIcon = 'src/images/show.png'; // Path to show icon
-const hideIcon = 'src/images/hide.png'; // Path to hide icon
+const hideIcon = 'src/images/hide.png'; // Path to hide sicon
 
 // Toggle password visibility
 togglePassword.addEventListener('click', function () {
@@ -23,18 +23,14 @@ signupButton.addEventListener('click', async () => {
   const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
+  const profilepicture = profilePicture.files?.[0];
 
-  if (username === '' || email === '' || password === '') {
-    const fieldsMessage = document.getElementById('incomplete_fields_message')!;
-    fieldsMessage.style.display = 'flex';
-
-    const fillFieldsButton = fieldsMessage.querySelector<HTMLButtonElement>('#fill_fields_again');
-    fillFieldsButton?.addEventListener('click', () => {
-      fieldsMessage.style.display = 'none';
-    });
-
-    return; // Exit function early since fields are incomplete
-  }
+  try {
+    // Validation
+    if (!username || !email || !password) {
+      alert('Please fill in all the fields');
+      return;
+    }
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -42,13 +38,13 @@ signupButton.addEventListener('click', async () => {
     const invalidEmailMessage = document.getElementById('invalid_email_message')!;
     invalidEmailMessage.style.display = 'flex';
 
-    const tryEmailButton = invalidEmailMessage.querySelector<HTMLButtonElement>('#try_email_again');
-    tryEmailButton?.addEventListener('click', () => {
-      invalidEmailMessage.style.display = 'none';
-    });
+      const tryEmailButton = invalidEmailMessage.querySelector<HTMLButtonElement>('#try_email_again');
+      tryEmailButton?.addEventListener('click', () => {
+        invalidEmailMessage.style.display = 'none';
+      });
 
-    return; // Exit function early since email is invalid
-  }
+      return; // Exit function early since email is invalid
+    }
 
   const formData = new FormData();
   formData.append('UserName', username);
