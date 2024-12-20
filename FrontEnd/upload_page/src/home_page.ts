@@ -47,6 +47,10 @@ const email = localStorage.getItem('logged-email');
 
 changeUsernameButton.addEventListener('click', async (e) => {
   e.preventDefault();
+  if (usernameInput.value === '') {
+    alert("Please enter a valid username")
+    return;
+  }
   try {
     const response = await axios.put('http://localhost:3000/api/change-username', {
       email,
