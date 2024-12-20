@@ -1,5 +1,3 @@
-import fetchFromDB from './fetchFromDB';
-
 // Define the interface for a note
 interface Note {
   year?: string;
@@ -9,11 +7,36 @@ interface Note {
   fileData?: string;
   fileName?: string;
 }
+// export interface Note {
+//   NoteID: number;
+//   Topic: string;
+//   Content: string;
+//   UploadDate: Date;
+//   UserID: number;
+//   YearLevelID: number;
+//   SubjectID: number;
+// }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // ari example backend usage. use as reference
-  const halinSaDB = await fetchFromDB();
+// import { Note } from './account';
 
+// document.addEventListener('DOMContentLoaded', async () => {
+//   try {
+//     const response = await fetch("http://localhost:3000/api/add-notes",
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify()
+//       }
+//     )
+//   } catch (error) {
+
+//   }
+
+// });
+
+document.addEventListener('DOMContentLoaded', () => {
   // Retrieve uploaded notes from localStorage using the correct key
   const notes: Note[] = JSON.parse(localStorage.getItem('notes') || '[]');
 
@@ -53,14 +76,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const username = note.username || 'Anonymous';
 
       fileDiv.innerHTML = `
-      <div>
-        <button class="download_button" title="Download">Download</button>
+        <button class="favorites" title="Mark as Favorite"></button>
+        <button class="download_button" title="Download"></button>
         <img src="src/pdf.svg" alt="file type" class="file_type_img">
         <p class="subject_cont"><strong>Subject:</strong> ${subject}</p>
         <p class="topic_cont"><strong>Topic:</strong> ${topic}</p>
         <img src="src/profile_notes.svg" alt="profile" class="profile">
         <p class="user_name_cont"><strong class="username">${username}</strong></p>
-      </div>
       `;
 
       fileLink.appendChild(fileDiv);

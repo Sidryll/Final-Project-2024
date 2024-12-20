@@ -1,6 +1,4 @@
-//Create Account Page
-
-import { User, users, saveUsers } from './useraccounts';
+// Create Account Page
 
 const usernameInput = document.getElementById('username_input') as HTMLInputElement;
 const emailInput = document.getElementById('email_input') as HTMLInputElement;
@@ -8,19 +6,22 @@ const passwordInput = document.getElementById('password_input') as HTMLInputElem
 const signupButton = document.getElementById('signup_button') as HTMLButtonElement;
 const togglePassword = document.getElementById('togglePassword') as HTMLButtonElement;
 const toggleIcon = document.getElementById('toggleIcon') as HTMLImageElement;
+const profilePicture = document.getElementById('profile_picture') as HTMLInputElement;
 
 const showIcon = 'src/images/show.png'; // Path to show icon
 const hideIcon = 'src/images/hide.png'; // Path to hide icon
 
+// Toggle password visibility
 togglePassword.addEventListener('click', function () {
   const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
   passwordInput.setAttribute('type', type);
   toggleIcon.src = type === 'password' ? hideIcon : showIcon; // Switch icon based on visibility
 });
 
-signupButton.addEventListener('click', () => {
-  const username = usernameInput.value;
-  const email = emailInput.value;
+// Handle sign-up
+signupButton.addEventListener('click', async () => {
+  const username = usernameInput.value.trim();
+  const email = emailInput.value.trim();
   const password = passwordInput.value;
 
   if (username === '' || email === '' || password === '') {
@@ -35,9 +36,9 @@ signupButton.addEventListener('click', () => {
     return; // Exit function early since fields are incomplete
   }
 
-  const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailpattern.test(email)) {
+  if (!emailPattern.test(email)) {
     const invalidEmailMessage = document.getElementById('invalid_email_message')!;
     invalidEmailMessage.style.display = 'flex';
 
@@ -49,33 +50,40 @@ signupButton.addEventListener('click', () => {
     return; // Exit function early since email is invalid
   }
 
-  const existinguser = users.find((user) => user.Email === email);
+  const formData = new FormData();
+  formData.append('UserName', username);
+  formData.append('Email', email);
+  formData.append('Password', password);
 
-  if (existinguser) {
-    const emailInUseMessage = document.getElementById('email_in_use_message')!;
-    emailInUseMessage.style.display = 'flex';
-
-    const tryEmailInUseButton = emailInUseMessage.querySelector<HTMLButtonElement>('#try_email_in_use_again');
-    tryEmailInUseButton?.addEventListener('click', () => {
-      emailInUseMessage.style.display = 'none';
-    });
-
-    usernameInput.value = '';
-    emailInput.value = '';
-    passwordInput.value = '';
-
-    return; // Exit function early since email is already in use
+  if (profilePicture.files && profilePicture.files[0]) {
+    formData.append('ProfilePicture', profilePicture.files[0]);
   }
 
-  const newUser: User = { Username: username, Email: email, Password: password };
+  // Send data to the server
+  try {
+    const response = await fetch('http://localhost:3000/api/add-account', {
+      method: 'POST',
+      body: formData,
+    });
 
-  users.push(newUser);
-
-  saveUsers(users);
-
-  alert(`Account Created, Welcome ${newUser.Username}`);
-  usernameInput.value = '';
-  emailInput.value = '';
-  passwordInput.value = '';
-  window.location.href = 'upload_page/home_page.html';
+    if (response.ok) {
+      const newAccount = await response.json();
+      console.log('Account added', newAccount);
+      localStorage.setItem(`${newAccount.email}`, newAccount.userId);
+      alert(`Account created successfully! Welcome, ${newAccount.userName}.`);
+      // Clear input fields
+      usernameInput.value = '';
+      emailInput.value = '';
+      passwordInput.value = '';
+      profilePicture.value = '';
+      // Redirect to another page if necessary
+      window.location.href = 'upload_page/home_page.html';
+    } else {
+      console.error('Error adding account:', response.statusText);
+      alert('Failed to add account. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('An error occurred while creating the account. Please try again later.');
+  }
 });
