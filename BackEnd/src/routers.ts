@@ -90,10 +90,8 @@ const handleFileUpload = async (filePath: string, fileName: string): Promise<voi
 const router = express.Router();
 
 // Router for adding a new account to the database
-router.post('/add-account', upload.single('ProfilePicture'), async (req: Request, res: Response) => {
+router.post('/add-account', async (req: Request, res: Response) => {
   const { UserName, Email, Password } = req.body;
-  const rawfile = req.file;
-  const profilePicture = req.file ? req.file.path : null;
 
   try {
     // Hash the password
@@ -101,17 +99,12 @@ router.post('/add-account', upload.single('ProfilePicture'), async (req: Request
     const hashedPassword = await bcrypt.hash(Password, saltRounds);
 
     // Insert the hashed password into the database
-    const result = await pool.query('INSERT INTO users (username, email, user_password, profile_picture) VALUES ($1, $2, $3, $4) RETURNING *', [UserName, Email, hashedPassword, profilePicture]);
+    const result = await pool.query('INSERT INTO users (username, email, user_password) VALUES ($1, $2, $3) RETURNING *', [UserName, Email, hashedPassword]);
 
     const userID = result.rows[0].user_id;
     const userName = result.rows[0].username;
     const email = result.rows[0].email;
 
-    if (rawfile) {
-      const ppfilepath = rawfile.path;
-      const ppfilename = rawfile.filename;
-      await handleFileUpload(ppfilepath, ppfilename);
-    }
     res.status(201).json({
       message: 'Account created successfully',
       userId: userID, // Send back the userId to the frontend
