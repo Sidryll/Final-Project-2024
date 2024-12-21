@@ -115,7 +115,13 @@ const deleteNote = async (note_id: number) => {
       method: 'DELETE',
     });
     if (response.ok) {
-      alert('Note deleted successfully!');
+      const succesDeleteMessage = document.getElementById('delete_message');
+      if (succesDeleteMessage) {
+        succesDeleteMessage.style.display = 'block'; // Show the warning popup
+        setTimeout(() => {
+          succesDeleteMessage.style.display = 'none';
+        }, 1200);
+      }
     } else {
       alert('Failed to delete note.');
     }

@@ -109,7 +109,13 @@ const saveNote = async (note_id: number, user_id: number) => {
       body: JSON.stringify({ note_id, user_id }),
     });
     if (response.ok) {
-      alert('Note saved successfully!');
+      const successSaveMessage = document.getElementById('success_message');
+      if (successSaveMessage) {
+        successSaveMessage.style.display = 'block'; // Show the warning popup
+        setTimeout(() => {
+          successSaveMessage.style.display = 'none';
+        }, 1200);
+      }
     } else {
       alert('Failed to save note.');
     }

@@ -90,7 +90,13 @@ const unSaveNote = async (saved_notes_id: number) => {
       method: 'DELETE',
     });
     if (response.ok) {
-      alert('Note deleted successfully!');
+      const successUnsaveMessage = document.getElementById('unsave_message');
+      if (successUnsaveMessage) {
+        successUnsaveMessage.style.display = 'block'; // Show the warning popup
+        setTimeout(() => {
+          successUnsaveMessage.style.display = 'none';
+        }, 1200);
+      }
     } else {
       alert('Failed to delete note.');
     }
