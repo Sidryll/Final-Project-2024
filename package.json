@@ -26,6 +26,7 @@
     "@types/nodemailer": "^6.4.17",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "nodemailer": "^6.9.16"
+    "nodemailer": "^6.9.16",
+    "mime-types": "^2.1.35"
   }
 }

@@ -1,0 +1,253 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #fcc857;
+}
+
+/* Background container for the full-page background image */
+.background-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('images/bg2.png'); /* Make sure this path is correct */
+  background-size: cover;
+  background-position: center;
+  z-index: -1; /* Ensure it stays behind the content */
+}
+
+/* Overlay for opacity on top of the background image */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity if needed */
+  z-index: 0; /* Overlay stays just above the background */
+}
+
+/* Main content styling */
+.container {
+  z-index: 1;
+  position: relative; /* Ensure content is above the overlay */
+}
+
+.large_title {
+  margin-top: 6.7vh;
+  font-size: 8vh;
+  color: white;
+}
+
+.sign_up_label {
+  color: #fcc857;
+  font-size: 6vh;
+}
+
+.form-control {
+  height: 3.5rem;
+  border-radius: 50px;
+  padding-left: 2rem;
+}
+
+/* Styling the sign up button */
+#signup_button {
+  margin-top: 2.4vh;
+  height: 6vh;
+  width: 12vw; /* Initial width */
+  border: none;
+  border-radius: 4vh;
+  color: white;
+  font-size: 2.4vh;
+  font-weight: bold;
+  background-color: #fcc857;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden; /* Hide anything that exceeds the button */
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease; /* Smooth transition for hover effect */
+  margin-left: auto; /* Center the button horizontally */
+  margin-right: auto; /* Center the button horizontally */
+  display: block; /* Ensure it's treated as a block element for centering */
+}
+
+/* Initially, the icon is hidden */
+#signup_button .button-icon {
+  display: none;
+  font-size: 2.5vh;
+}
+
+/* On hover - the button reduces its width and swaps text with icon */
+#signup_button:hover {
+  width: 6vw; /* Reduce width to half */
+  background-color: #f2b02d; /* Darker yellow on hover */
+}
+
+/* On hover, hide the text and show the icon */
+#signup_button:hover .button-text {
+  display: none; /* Hide the text */
+}
+
+#signup_button:hover .button-icon {
+  display: block; /* Show the icon */
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
+.bg-center {
+  background-position: center;
+}
+
+/* Sign-up form container styling */
+.row.justify-content-center {
+  z-index: 1; /* Ensure it stays on top of the overlay */
+}
+
+.bg-white {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.shadow-lg {
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* Larger shadow for the form */
+}
+
+.signup_successful {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #5cff61;
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  display: none;
+  text-align: center;
+}
+
+.incomplete_fields,
+.invalid_email,
+.email_in_use {
+  position: fixed; /* Fixed positioning to ensure it stays in view when scrolling */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the elements */
+  padding: 20px;
+  background-color: rgba(255, 0, 0, 0.8); /* Red background with transparency */
+  color: white;
+  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 9999; /* Ensure it's on top of other content */
+  display: none; /* Hide by default */
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .large_title {
+    font-size: 6vh;
+    margin-top: 10vh;
+  }
+
+  .sign_up_label {
+    font-size: 5vh;
+  }
+
+  #signup_button {
+    width: 20vw;
+    height: 7vh;
+    font-size: 2.2vh;
+  }
+
+  .form-control {
+    height: 3rem;
+  }
+
+  .bg-white {
+    padding: 30px 20px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .large_title {
+    font-size: 6vh;
+    margin-top: 10vh;
+  }
+
+  .sign_up_label {
+    font-size: 5vh;
+  }
+
+  #signup_button {
+    width: 20vw;
+    height: 7vh;
+    font-size: 2.2vh;
+  }
+
+  .form-control {
+    height: 3rem;
+  }
+
+  .bg-white {
+    padding: 30px 20px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .large_title {
+    font-size: 5vh;
+    margin-top: 8vh;
+  }
+
+  .sign_up_label {
+    font-size: 4.5vh;
+  }
+
+  #signup_button {
+    width: 60vw;
+    height: 8vh;
+    font-size: 2vh;
+  }
+
+  .form-control {
+    height: 2.8rem;
+  }
+
+  .bg-white {
+    padding: 20px 15px;
+  }
+}

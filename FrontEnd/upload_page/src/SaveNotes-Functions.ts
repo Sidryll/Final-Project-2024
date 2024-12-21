@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (currentPath.includes('SavedNotes.html')) {
     fetchSavedNotes(Number(userId));
   }
+
+  // Set up the search functionality
+  const searchInput: HTMLInputElement = document.querySelector('.search_input') as HTMLInputElement;
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      fetchSavedNotes(Number(userId)); // Re-fetch the saved notes and apply the filter
+    });
+  }
 });
 
 const fetchSavedNotes = async (user_id: number) => {
@@ -26,25 +34,36 @@ const fetchSavedNotes = async (user_id: number) => {
     const savedNotes = await response.json();
     console.log('Fetched saved notes:', savedNotes);
 
-    savedNotes.forEach((savedNote: { saved_notes_id: number; topic: string; upload_date: string; subject_name: string; username: string }) => {
+    // Get the search query value
+    const searchInput: HTMLInputElement = document.querySelector('.search_input') as HTMLInputElement;
+    const searchQuery = searchInput?.value.toLowerCase() || '';
+
+    // Filter notes based on the search query
+    const filteredSavedNotes = savedNotes.filter((savedNote: { subject_name: string; topic: string }) => {
+      return (
+        savedNote.subject_name.toLowerCase().includes(searchQuery) ||
+        savedNote.topic.toLowerCase().includes(searchQuery)
+      );
+    });
+
+    // Render the filtered notes
+    filteredSavedNotes.forEach((savedNote: { file_url: string; saved_notes_id: number; topic: string; upload_date: string; subject_name: string; username: string }) => {
       const noteElement = document.createElement('div');
       noteElement.className = 'note';
-      //Add Design of Notes here.
+      // Add Design of Notes here
       noteElement.innerHTML = `
+        <div class="notes_cont_box">
+          <button class="unsaved-button" data-id="${savedNote.saved_notes_id}">unSave</button>
+          <img src="src/pdf.svg" alt="file type" class="file_type_img">
+          <p class="subject_cont"><strong>Subject:</strong>  ${savedNote.subject_name}</p>
+          <p class="topic_cont"><strong>Topic:</strong> ${savedNote.topic}</p>
+          <p class="date_cont"><strong class="date_holder">Uploaded on:</strong> ${savedNote.upload_date}</p>
+          <img src="src/profile_notes.svg" alt="profile" class="profile">
+          <p class="user_name_cont"><strong class="username">  ${savedNote.username}</strong></p>
+        </div>
+      `;
 
-                <div class="notes_cont_box">
-                  <button class="unsaved-button" data-id="${savedNote.saved_notes_id}">unSave</button>
-                  <button class="download_button" title="Download">Download</button>
-                  <img src="src/pdf.svg" alt="file type" class="file_type_img">
-                  <p class="subject_cont"><strong>Subject:</strong>${savedNote.subject_name}</p>
-                  <p class ="topic_cont"><strong>Topic:</strong> ${savedNote.topic}</p>
-                  <p class = "date_cont"><strong class = "date_holder">Uploaded on:</strong> ${savedNote.upload_date}</p>
-                  <img src="src/profile_notes.svg" alt="profile" class="profile">
-                  <p class="user_name_cont"><strong class="username">${savedNote.username}</strong></p>
-                </div>
-            `;
-
-      const unSaveButton = noteElement.querySelector('.unsave-button') as HTMLButtonElement;
+      const unSaveButton = noteElement.querySelector('.unsaved-button') as HTMLButtonElement;
       if (unSaveButton) {
         unSaveButton.addEventListener('click', () => {
           const saved_notes_id = parseInt(unSaveButton.getAttribute('data-id') || '', 10);
@@ -70,7 +89,13 @@ const unSaveNote = async (saved_notes_id: number) => {
       method: 'DELETE',
     });
     if (response.ok) {
-      alert('Note deleted successfully!');
+      const successUnsaveMessage = document.getElementById('unsave_message');
+      if (successUnsaveMessage) {
+        successUnsaveMessage.style.display = 'block'; // Show the warning popup
+        setTimeout(() => {
+          successUnsaveMessage.style.display = 'none';
+        }, 1200);
+      }
     } else {
       alert('Failed to delete note.');
     }

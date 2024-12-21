@@ -1,9 +1,12 @@
-//Function for adding notes to the database
 document.addEventListener('DOMContentLoaded', () => {
   const uploadForm = document.getElementById('upload_form') as HTMLFormElement;
 
   const yearSelect = document.getElementById('year') as HTMLSelectElement;
   const subjectInput = document.getElementById('subject_input') as HTMLSelectElement;
+  const progressContainer = document.getElementById('progress-container') as HTMLDivElement;
+  const progressBar = document.getElementById('progress') as HTMLProgressElement;
+  const progressText = document.getElementById('progress-text') as HTMLSpanElement;
+
   // Function to update subjects based on the selected year
   function updateSubjects(): void {
     const year = yearSelect.value;
@@ -100,8 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const year = yearSelect.value;
     const subject = subjectInput.value;
-    // const year = (document.getElementById('year') as HTMLInputElement).value;
-    // const subject = (document.getElementById('subject_input') as HTMLInputElement).value;
     const topicInput = document.getElementById('topic_input') as HTMLInputElement;
     const fileInput = document.getElementById('file_upload') as HTMLInputElement;
 
@@ -118,6 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Show progress bar
+    progressContainer.style.display = 'block';
+    progressBar.value = 0;
+    progressText.textContent = '0%';
+
     const response = await fetch('http://localhost:3000/api/yearlevel_subject-id', {
       method: 'POST',
       headers: {
@@ -133,9 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const { yearLevelId, subjectId } = await response.json();
 
       const currentDate = new Date();
-
-      // Format the date as YYYY-MM-DD
-      const uploadDate = currentDate.toISOString().split('T')[0]; // Outputs: 'YYYY-MM-DD'
+      const uploadDate = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD
       const logged_account = localStorage.getItem('logged-email');
       const userId = logged_account ? localStorage.getItem(logged_account) : null;
 
@@ -152,17 +156,37 @@ document.addEventListener('DOMContentLoaded', () => {
       formData.append('yearlevel_id', yearLevelId);
       formData.append('subject_id', subjectId);
 
-      const uploadResponse = await fetch('http://localhost:3000/api/add-notes', {
-        method: 'POST',
-        body: formData,
+      const uploadRequest = new XMLHttpRequest();
+      uploadRequest.open('POST', 'http://localhost:3000/api/add-notes', true);
+
+      // Update progress during upload
+      uploadRequest.upload.addEventListener('progress', function (event) {
+        if (event.lengthComputable) {
+          const percentComplete = (event.loaded / event.total) * 100;
+          progressBar.value = percentComplete;
+          progressText.textContent = Math.round(percentComplete) + '%';
+        }
       });
 
-      if (uploadResponse.ok) {
-        alert('Note shared successfully!');
-        uploadForm.reset();
-      } else {
-        alert('Error sharing note. Please try again.');
-      }
+      // When upload is finished
+      uploadRequest.onload = function () {
+        if (uploadRequest.status == 201) {
+          const successShareMessage = document.getElementById('upload_message');
+          if (successShareMessage) {
+            successShareMessage.style.display = 'block';
+            setTimeout(() => {
+              successShareMessage.style.display = 'none';
+            }, 1200);
+          }
+          uploadForm.reset();
+        } else {
+          alert('Error sharing note. Please try again.');
+        }
+        progressContainer.style.display = 'none'; // Hide progress bar
+      };
+
+      // Send the form data
+      uploadRequest.send(formData);
     } else {
       alert('Failed to retrieve primary key. Please try again.');
     }

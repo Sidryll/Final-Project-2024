@@ -1,4 +1,3 @@
-//Get the notes in the database that have been added by the user. Uses userId as parameter.
 document.addEventListener('DOMContentLoaded', () => {
   const logged_account = localStorage.getItem('logged-email');
   const userId = logged_account ? localStorage.getItem(logged_account) : null;
@@ -14,6 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
   if (currentPath.includes('myNotes.html')) {
     fetchMyNotes(Number(userId));
   }
+
+  // Set up event listeners for filtering options
+  const searchInput: HTMLInputElement = document.querySelector('.search_input') as HTMLInputElement;
+
+  searchInput?.addEventListener('input', (event) => {
+    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+    filterNotes(searchTerm);
+  });
 });
 
 // Fetch Notes Function
@@ -30,49 +37,76 @@ const fetchMyNotes = async (user_id: number) => {
 
     const notes = await response.json();
 
-    // Clear existing notes
-    notesContainer.innerHTML = '';
+    // Store the fetched notes globally
+    window.notes = notes;
 
-    if (notes.length === 0) {
-      notesContainer.innerHTML = '<li>No notes found.</li>';
-      return;
-    }
-
-    notes.forEach((note: { note_id: number; topic: string; upload_date: string; username: string; subject_name: string }) => {
-      const noteElement = document.createElement('li');
-      noteElement.className = 'note';
-      noteElement.innerHTML = `
-        
-          <div class="notes_cont_box">
-            <button class="save-button" data-id="${note.note_id}">Save</button>
-            <button class="download_button" title="Download">Download</button>
-            <img src="src/pdf.svg" alt="file type" class="file_type_img">
-            <p class="subject_cont"><strong>Subject:</strong> ${note.subject_name}</p>
-            <p class ="topic_cont"><strong>Topic:</strong> ${note.topic}</p>
-            <p class = "date_cont"><strong class = "date_holder">Uploaded on:</strong> ${note.upload_date}</p>
-            <img src="src/profile_notes.svg" alt="profile" class="profile">
-            <p class="user_name_cont"><strong class="username">${note.username}</strong></p>
-          </div>
-      `;
-
-      const deleteButton = noteElement.querySelector('.delete-button') as HTMLButtonElement;
-      if (deleteButton) {
-        deleteButton.addEventListener('click', () => {
-          const noteId = parseInt(deleteButton.getAttribute('data-id') || '', 10);
-          if (noteId) {
-            deleteNote(noteId);
-            noteElement.remove(); // Remove the note from the UI after deletion
-          }
-        });
-      }
-      notesContainer.appendChild(noteElement);
-    });
+    renderNotes(notes); // Render the fetched notes initially
   } catch (error) {
     console.error('Error fetching notes:', error);
   }
 };
 
-//Function to delete the note from the my notes screen and from the database.
+// Render the notes on the page
+const renderNotes = (notesToRender: any[]): void => {
+  const notesContainer: HTMLElement | null = document.getElementById('myNotes');
+  if (!notesContainer) return;
+
+  notesContainer.innerHTML = notesToRender.length
+    ? notesToRender
+        .map(
+          (note) => `
+      <li class="note">
+        <div class="notes_cont_box">
+          <button class="delete-button" data-id="${note.note_id}">Delete</button>
+          <img src="src/pdf.svg" alt="file type" class="file_type_img">
+          <p class="subject_cont"><strong>Subject:</strong> ${note.subject_name}</p>
+          <p class="topic_cont"><strong>Topic:</strong> ${note.topic}</p>
+          <p class="date_cont"><strong class="date_holder">Uploaded on:</strong> ${note.upload_date}</p>
+          <img src="src/profile_notes.svg" alt="profile" class="profile">
+          <p class="user_name_cont"><strong class="username">${note.username}</strong></p>
+        </div>
+      </li>
+    `
+        )
+        .join('')
+    : '<li>No notes found.</li>';
+
+  // Add event listener for delete buttons
+  const deleteButtons = document.querySelectorAll('.delete-button');
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const noteId = (event.target as HTMLElement).getAttribute('data-id');
+      if (noteId) {
+        deleteNote(Number(noteId));
+        // Remove the note from the UI after deletion
+        const noteElement = (event.target as HTMLElement).closest('li');
+        noteElement?.remove();
+      }
+    });
+  });
+};
+
+// Function to filter notes based on search term
+const filterNotes = (searchTerm: string): void => {
+  const notes = window.notes || []; // Get the stored notes
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+
+  const filteredNotes = notes.filter((note) => {
+    const topic = note.topic.toLowerCase();
+    const subject = note.subject_name.toLowerCase();
+    const username = note.username.toLowerCase();
+
+    return (
+      topic.includes(normalizedSearchTerm) ||
+      subject.includes(normalizedSearchTerm) ||
+      username.includes(normalizedSearchTerm)
+    );
+  });
+
+  renderNotes(filteredNotes);
+};
+
+// Function to delete the note from the database
 const deleteNote = async (note_id: number) => {
   if (!note_id) return;
 
@@ -81,7 +115,13 @@ const deleteNote = async (note_id: number) => {
       method: 'DELETE',
     });
     if (response.ok) {
-      alert('Note deleted successfully!');
+      const succesDeleteMessage = document.getElementById('delete_message');
+      if (succesDeleteMessage) {
+        succesDeleteMessage.style.display = 'block'; // Show the warning popup
+        setTimeout(() => {
+          succesDeleteMessage.style.display = 'none';
+        }, 1200);
+      }
     } else {
       alert('Failed to delete note.');
     }
