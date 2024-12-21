@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('change-password-form') as HTMLFormElement;
   const responseMessageDiv = document.getElementById('response-message') as HTMLDivElement;
-
+  
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 

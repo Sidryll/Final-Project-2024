@@ -13,16 +13,6 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
 });
 
-// const query = async (text: string, params?: any[]) => {
-//   try {
-//     const result = await pool.query(text, params);
-//     return result;
-//   } catch (error) {
-//     console.error('Database query error:', error);
-//     throw error;
-//   }
-// };
-
 pool.connect((err) => {
   if (err) {
     console.error('Connection error:', err);
