@@ -23,14 +23,13 @@ signupButton.addEventListener('click', async () => {
   const username = usernameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-  // const profilepicture = profilePicture.files?.[0];
 
   try {
     // Validation
     if (!username || !email || !password) {
       const incWarningMessage = document.getElementById('incomplete_fields_message');
       if (incWarningMessage) {
-        incWarningMessage.style.display = 'block';  // Show the warning popup
+        incWarningMessage.style.display = 'block'; // Show the warning popup
         setTimeout(() => {
           incWarningMessage.style.display = 'none';
         }, 1200);
@@ -43,7 +42,7 @@ signupButton.addEventListener('click', async () => {
     if (!emailpattern.test(email)) {
       const invalidEmailMessage = document.getElementById('invalid_email_message')!;
       if (invalidEmailMessage) {
-        invalidEmailMessage.style.display = 'block';  // Show the warning popup
+        invalidEmailMessage.style.display = 'block'; // Show the warning popup
         setTimeout(() => {
           invalidEmailMessage.style.display = 'none';
         }, 1200);
@@ -55,7 +54,6 @@ signupButton.addEventListener('click', async () => {
     formData.append('UserName', username);
     formData.append('Email', email);
     formData.append('Password', password);
-    // if (profilepicture) formData.append('ProfilePicture', profilepicture);
 
     // Send data to the server
     const response = await fetch('http://localhost:3000/api/add-account', {
@@ -77,7 +75,7 @@ signupButton.addEventListener('click', async () => {
         if (signupMessage && userNamePlaceholder) {
           userNamePlaceholder.textContent = userName;
           signupMessage.textContent = `Account created successfully! Welcome, ${userName}.`;
-          
+
           signup_success.style.display = 'block';
           setTimeout(() => {
             signup_success.style.display = 'none';
@@ -86,23 +84,20 @@ signupButton.addEventListener('click', async () => {
           usernameInput.value = '';
           emailInput.value = '';
           passwordInput.value = '';
-          // profilePicture.value = '';
-    
+
           setTimeout(() => {
             window.location.href = 'upload_page/home_page.html';
           }, 2000);
-
         } else {
           console.error('alertMessage or userNamePlaceholder not found');
         }
       }
-      showCustomAlert(newAccount.userName)
-
+      showCustomAlert(newAccount.userName);
     } else {
       console.error('Error adding account:', response.statusText);
       const inUsedWarningMessage = document.getElementById('email_in_use_message');
       if (inUsedWarningMessage) {
-        inUsedWarningMessage.style.display = 'block'; 
+        inUsedWarningMessage.style.display = 'block';
         setTimeout(() => {
           inUsedWarningMessage.style.display = 'none';
         }, 1200);
