@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Preview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #file-preview-container {
+      margin-top: 20px;
+    }
+    img, iframe {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h2>File Preview</h2>
+
+  <div id="file-preview-container"></div>
+
+  <script>
+    // Get the file URL from the URL query parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const fileUrl = urlParams.get('file');
+
+    console.log('File URL:', fileUrl);  // For debugging
+
+    // Check if the fileUrl is valid
+    if (fileUrl) {
+      const fileExtension = fileUrl.split('.').pop().toLowerCase();
+      const container = document.getElementById('file-preview-container');
+
+      // Displaying image files
+      if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+        const img = document.createElement('img');
+        img.src = fileUrl;
+        img.alt = "Image Preview";
+        container.appendChild(img);
+      }
+
+      // Displaying PDF files
+      else if (fileExtension === 'pdf') {
+        const iframe = document.createElement('iframe');
+        iframe.src = fileUrl;
+        iframe.width = "100%";
+        iframe.height = "600px";
+        container.appendChild(iframe);
+      }
+
+      // Handle other file types (audio, video, etc.)
+      else if (['mp4', 'mkv', 'webm'].includes(fileExtension)) {
+        const video = document.createElement('video');
+        video.src = fileUrl;
+        video.controls = true;
+        video.width = "100%";
+        container.appendChild(video);
+      }
+
+      else if (['mp3', 'wav'].includes(fileExtension)) {
+        const audio = document.createElement('audio');
+        audio.src = fileUrl;
+        audio.controls = true;
+        audio.width = "100%";
+        container.appendChild(audio);
+      }
+
+      else {
+        container.innerHTML = '<p>File type not supported for preview.</p>';
+      }
+    } else {
+      alert('No file URL found.');
+    }
+  </script>
+</body>
+</html>
