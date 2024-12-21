@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const currentPath: string = window.location.pathname;
 
-  // Check if we are on the "My Notes" page
+
   if (currentPath.includes('home_page.html')) {
     fetchPublicNotes();
   }
@@ -63,7 +63,7 @@ const renderNotes = (notesToRender: Note[]): void => {
       <li class="note">
         <div class="notes_cont_box">
           <button class="save-button" data-id="${note.note_id}">Save</button>
-          <a href="${note.file_url}" download title="Download"><button class="download_button">Preview</button></a>
+          <a href="${note.file_url}" download title="Download" class = "download_a"><button class="download_button">Preview</button></a>
           <img src="src/pdf.svg" alt="file type" class="file_type_img">
           <p class="subject_cont"><strong>Subject:</strong> ${note.subject_name}</p>
           <p class="topic_cont"><strong>Topic:</strong> ${note.topic}</p>
