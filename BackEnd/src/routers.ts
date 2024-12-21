@@ -202,8 +202,6 @@ router.get('/fetch-userData', async (req: Request, res: Response): Promise<void>
 router.post('/add-notes', upload.single('filepath'), async (req: Request, res: Response): Promise<void> => {
   const { topic, yearlevel_id, subject_id, upload_date } = req.body;
   const user_id = parseInt(req.body.user_id);
-  // const yearlevel_id = parseInt(req.body.yearlevel_id);
-  // const subject_id = parseInt(req.body.subject_id);
   const content = req.file ? path.normalize(req.file.path).replace(/\\/g, '/') : null; // Ensure that the file path is being received correctly
   console.log('Year Level ID:', yearlevel_id);
   console.log('Subject ID:', subject_id);
