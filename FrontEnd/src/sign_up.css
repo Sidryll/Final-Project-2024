@@ -73,6 +73,134 @@ body {
   background-color: #f2b02d;
 }
 
+.incorrect_email,
+.incorrect_password {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  height: 32vh;
+  width: 36vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.incorrect_email .email_message,
+.incorrect_password .inco_message {
+  font-size: 4.3vh;
+  color: #333;
+  margin-bottom: 1.5vh;
+  background-color: #ffffff;
+}
+
+.incorrect_email .email_button,
+.incorrect_password .inco_button {
+  padding: 1vh 2vw;
+  background-color: #fcc857;
+  border: none;
+  border-radius: 4vh;
+  color: white;
+  font-size: 2.8vh;
+  cursor: pointer;
+}
+
+.incorrect_email .email_button:hover,
+.incorrect_password .inco_button:hover {
+  background-color: #f2b02d;
+}
+
+.incomplete_fields {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  height: 32vh;
+  width: 36vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 1px solid #ccc;
+}
+.incomplete_fields,
+.invalid_email,
+.email_in_use {
+  z-index: 3;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  height: 32vh;
+  width: 36vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.fields_message,
+.email_message {
+  font-size: 4.3vh;
+  color: #333;
+  margin-bottom: 1.5vh;
+  background-color: #ffffff;
+}
+
+.fields_button,
+.email_button {
+  padding: 1vh 2vw;
+  background-color: #fcc857;
+  border: none;
+  border-radius: 4vh;
+  color: white;
+  font-size: 2.8vh;
+  cursor: pointer;
+}
+
+.fields_button:hover,
+.email_button:hover {
+  background-color: #f2b02d;
+}
+
+.fields_message {
+  font-size: 4.3vh;
+  color: #333;
+  margin-bottom: 1.5vh;
+  background-color: #ffffff;
+}
+
+.fields_button {
+  padding: 1vh 2vw;
+  background-color: #fcc857;
+  border: none;
+  border-radius: 4vh;
+  color: white;
+  font-size: 2.8vh;
+  cursor: pointer;
+}
+
+.fields_button:hover {
+  background-color: #f2b02d;
+}
+
 .login_container_style {
   z-index: 1;
   border: 2px solid white;

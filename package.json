@@ -19,5 +19,8 @@
     "husky": "^9.1.6",
     "prettier": "^3.3.3",
     "typescript-eslint": "^8.11.0"
+  },
+  "dependencies": {
+    "mime-types": "^2.1.35"
   }
 }

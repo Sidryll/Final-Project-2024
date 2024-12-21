@@ -1,14 +1,21 @@
-import express, { Request, Response } from 'express';
+//app.ts
+
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import backendRouters from './routers';
+
+dotenv.config();
 
 const app = express();
-const PORT = 3000;
+
+app.use(cors());
 
 app.use(express.json());
+app.use('/api', backendRouters);
 
-app.get('/api', (req: Request, res: Response) => {
-  res.json({ message: 'Hello from the backend!' });
-});
+const port = 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
