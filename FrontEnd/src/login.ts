@@ -22,7 +22,7 @@ loginButton.addEventListener('click', async () => {
     if (email === '' || password === '') {
       const incWarningMessage = document.getElementById('incomplete_fields_message');
       if (incWarningMessage) {
-        incWarningMessage.style.display = 'block';  // Show the warning popup
+        incWarningMessage.style.display = 'block'; // Show the warning popup
         setTimeout(() => {
           incWarningMessage.style.display = 'none';
         }, 1200);
@@ -36,7 +36,7 @@ loginButton.addEventListener('click', async () => {
     if (!emailpattern.test(email)) {
       const invalidEmailMessage = document.getElementById('invalid_email_message');
       if (invalidEmailMessage) {
-        invalidEmailMessage.style.display = 'block';  // Show the warning popup
+        invalidEmailMessage.style.display = 'block'; // Show the warning popup
         setTimeout(() => {
           invalidEmailMessage.style.display = 'none';
         }, 1200);
@@ -95,18 +95,17 @@ loginButton.addEventListener('click', async () => {
       localStorage.setItem('logged-email', `${email}`);
 
       const successfulLogin = document.getElementById('successful_login_message') as HTMLDivElement;
-        successfulLogin.style.display = "block";
-        setTimeout(() => {
-          successfulLogin.style.display = "none";
-        }, 2000);
+      successfulLogin.style.display = 'block';
+      setTimeout(() => {
+        successfulLogin.style.display = 'none';
+      }, 2000);
 
       emailInput.value = '';
       passwordInput.value = '';
-      
+
       setTimeout(() => {
         window.location.href = 'upload_page/home_page.html';
       }, 2000);
-      
     } else {
       throw new Error('Failed to validate account');
     }
