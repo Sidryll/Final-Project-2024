@@ -14,6 +14,13 @@ submitButton.addEventListener('click', async (event) => {
     return;
   }
 
+  const emailpattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailpattern.test(email.value)) {
+    alert('Please enter a valid Email');
+    return;
+  }
+
   console.log('First name: ', FirstName.value);
   console.log('Last name: ', LastName.value);
   console.log('email: ', email.value);

@@ -461,12 +461,12 @@ router.put('/change-username', async (req: Request, res: Response) => {
 router.post('/send-email', async (req: Request, res: Response) => {
   try {
     const { FirstName, LastName, email, message } = req.body;
-    await sendEmail(FirstName, LastName, email, message)
-    res.status(200).send("message sent!")
+    await sendEmail(FirstName, LastName, email, message);
+    res.status(200).send('message sent!');
   } catch (error) {
-    console.log(error)
-    res.status(500).send("something went wrong")
+    console.log(error);
+    res.status(500).send('something went wrong');
   }
-})
+});
 
 export default router;
