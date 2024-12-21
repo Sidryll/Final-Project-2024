@@ -1,0 +1,98 @@
+.h-box-alignment {
+  overflow: auto;
+}
+
+.profile_container {
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+  margin-left: 220px;
+  padding: 0;
+  display: flex; /* Enable Flexbox */
+  justify-content: center; /* Center content horizontally */
+  background-color: #ffc857; /* Light gray */
+  font-family: Arial, sans-serif;
+}
+
+.vertical-container {
+  display: flex;
+  gap: 10px;
+  flex-direction: column; /* Stack items vertically */
+  background-color: #ffffff; /* White */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 75vw;
+  height: min-content;
+}
+
+.profile-pic {
+  background-color: white;
+  width: 100px;
+  height: 100px;
+}
+
+.profile2 {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.prof3 {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.acctext {
+  flex-grow: 1;
+  font-size: 15px;
+  color: rgb(64, 64, 64);
+  cursor: pointer;
+  background-color: white;
+}
+
+.acctext:hover {
+  background-color: rgb(235, 235, 235);
+}
+.accname {
+  background-color: white;
+  flex-grow: 0.4;
+  display: flex; /* Enable Flexbox */
+  font-size: 25px;
+  color: black;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: flex-end; /* Push text to the bottom */
+  align-items: start; /* Center text horizontally */
+  cursor: pointer;
+}
+
+.accnavbutton {
+  background-color: #ffffff;
+  font-weight: 750;
+  height: 50px;
+  font-size: 25px;
+  user-select: none;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+  border-bottom: 2px solid gray;
+  align-content: center;
+}
+
+.accnavbutton svg {
+  background-color: transparent;
+  height: 60%;
+  width: 50px;
+}
+
+.accnavbutton:active {
+  background-color: rgb(200, 200, 200);
+  transform: scale(0.98);
+}
+
+.accnavbutton:hover {
+  cursor: pointer;
+  background-color: #c7c7c7;
+}
