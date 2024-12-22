@@ -15,10 +15,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('images/bg2.png'); /* Make sure this path is correct */
+  background-image: url('images/bg2.png'); 
   background-size: cover;
   background-position: center;
-  z-index: -1; /* Ensure it stays behind the content */
+  z-index: -1; 
 }
 
 /* Overlay for opacity on top of the background image */
@@ -28,14 +28,14 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity if needed */
-  z-index: 0; /* Overlay stays just above the background */
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 0; 
 }
 
 /* Main content styling */
 .container {
   z-index: 1;
-  position: relative; /* Ensure content is above the overlay */
+  position: relative; 
 }
 
 .large_title {
@@ -55,11 +55,11 @@ body {
   padding-left: 2rem;
 }
 
-/* Styling the sign up button */
+/* For button */
 #login_button {
   margin-top: 2.4vh;
   height: 6vh;
-  width: 12vw; /* Initial width */
+  width: 12vw;
   border: none;
   border-radius: 4vh;
   color: white;
@@ -70,13 +70,13 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden; /* Hide anything that exceeds the button */
+  overflow: hidden; 
   transition:
     width 0.3s ease,
-    background-color 0.3s ease; /* Smooth transition for hover effect */
-  margin-left: auto; /* Center the button horizontally */
-  margin-right: auto; /* Center the button horizontally */
-  display: block; /* Ensure it's treated as a block element for centering */
+    background-color 0.3s ease;
+  margin-left: auto; 
+  margin-right: auto; 
+  display: block; 
 }
 
 /* Initially, the icon is hidden */
@@ -87,17 +87,17 @@ body {
 
 /* On hover - the button reduces its width and swaps text with icon */
 #login_button:hover {
-  width: 6vw; /* Reduce width to half */
-  background-color: #f2b02d; /* Darker yellow on hover */
+  width: 6vw; 
+  background-color: #f2b02d; 
 }
 
 /* On hover, hide the text and show the icon */
 #login_button:hover .button-text {
-  display: none; /* Hide the text */
+  display: none; 
 }
 
 #login_button:hover .button-icon {
-  display: block; /* Show the icon */
+  display: block; 
 }
 
 .icon {

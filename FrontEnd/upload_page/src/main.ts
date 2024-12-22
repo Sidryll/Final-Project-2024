@@ -171,7 +171,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // When upload is finished
       uploadRequest.onload = function () {
         if (uploadRequest.status == 201) {
-          alert('Note shared successfully!');
+          const successShareMessage = document.getElementById('upload_message');
+          if (successShareMessage) {
+            successShareMessage.style.display = 'block';
+            setTimeout(() => {
+              successShareMessage.style.display = 'none';
+            }, 1200);
+          }
           uploadForm.reset();
         } else {
           alert('Error sharing note. Please try again.');
