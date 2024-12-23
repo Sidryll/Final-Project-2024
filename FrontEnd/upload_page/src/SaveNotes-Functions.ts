@@ -73,7 +73,6 @@ const fetchSavedNotes = async (user_id: number) => {
           }
         });
       }
-
       notesContainer.appendChild(noteElement);
     });
   } catch (error) {
