@@ -7,6 +7,7 @@ interface Note {
   fileData?: string;
   fileName?: string;
 }
+
 // export interface Note {
 //   NoteID: number;
 //   Topic: string;
@@ -44,8 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const notesContainer = document.querySelector<HTMLDivElement>('.notes_container');
   const yearSelect = document.getElementById('year') as HTMLSelectElement;
   const subjectInput = document.getElementById('subject_input') as HTMLSelectElement;
-
-  //Search Input
   const searchInput = document.getElementById('search_input') as HTMLInputElement;
 
   if (!notesContainer || !yearSelect || !subjectInput || !searchInput) {
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Function to render filtered notes
-  const renderNotes = (filteredNotes: Note[]): void => {
+  function renderNotes(filteredNotes: Note[]): void {
     notesContainer.innerHTML = ''; // Clear current content
 
     if (filteredNotes.length === 0) {
@@ -79,22 +78,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const username = note.username || 'Anonymous';
 
       fileDiv.innerHTML = `
-          <button class="favorites" title="Mark as Favorite"></button>
-          <button class="download_button" title="Download"></button>
-          <img src="src/pdf.svg" alt="file type" class="file_type_img">
-          <p class="subject_cont"><strong>Subject:</strong> ${subject}</p>
-          <p class="topic_cont"><strong>Topic:</strong> ${topic}</p>
-          <img src="src/profile_notes.svg" alt="profile" class="profile">
-          <p class="user_name_cont"><strong class="username">${username}</strong></p>
-        `;
+        <button class="favorites" title="Mark as Favorite"></button>
+        <button class="download_button" title="Download"></button>
+        <img src="src/pdf.svg" alt="file type" class="file_type_img">
+        <p class="subject_cont"><strong>Subject:</strong> ${subject}</p>
+        <p class="topic_cont"><strong>Topic:</strong> ${topic}</p>
+        <img src="src/profile_notes.svg" alt="profile" class="profile">
+        <p class="user_name_cont"><strong class="username">${username}</strong></p>
+      `;
 
       fileLink.appendChild(fileDiv);
       notesContainer.appendChild(fileLink);
     });
-  };
+  }
 
   // Function to filter notes based on year, subject, and search query (search by subject or topic)
-  const filterNotes = (): void => {
+  function filterNotes(): void {
     const selectedYear = yearSelect.value;
     const selectedSubject = subjectInput.value;
     const searchQuery = searchInput.value.trim().toLowerCase();
@@ -105,35 +104,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Check if searched keywords match the query subject or topic
       const matchesSearch =
-        !searchQuery || searchQuery.split(' ').every((keyword) => (note.subject && note.subject.toLowerCase().includes(keyword)) || (note.topic && note.topic.toLowerCase().includes(keyword)));
+        !searchQuery || searchQuery.split(' ').every((keyword) => 
+          (note.subject && note.subject.toLowerCase().includes(keyword)) ||
+          (note.topic && note.topic.toLowerCase().includes(keyword))
+        );
 
       return matchesYear && matchesSubject && matchesSearch;
     });
 
     renderNotes(filteredNotes);
-  };
+  }
 
   // Function to populate subjects based on the selected year
-  const updateSubjects = (): void => {
+  function updateSubjects(): void {
     const year = yearSelect.value;
     let subjects: string[] = [];
 
-    switch (year) {
-      case 'first':
-        subjects = ['Calculus 1', 'Chemistry', 'Software Development 1', 'Physics', 'General Math'];
-        break;
-      case 'second':
-        subjects = ['Algorithms', 'Data Structures', 'Linear Algebra', 'Operating Systems'];
-        break;
-      case 'third':
-        subjects = ['Machine Learning', 'Computer Networks', 'Software Engineering'];
-        break;
-      case 'fourth':
-        subjects = ['Capstone Project', 'Advanced Programming', 'Distributed Systems'];
-        break;
-      default:
-        subjects = [];
-        break;
+    if (year === 'first') {
+      subjects = ['Calculus 1', 'Chemistry', 'Software Development 1', 'Physics', 'General Math'];
+    } else if (year === 'second') {
+      subjects = ['Algorithms', 'Data Structures', 'Linear Algebra', 'Operating Systems'];
+    } else if (year === 'third') {
+      subjects = ['Machine Learning', 'Computer Networks', 'Software Engineering'];
+    } else if (year === 'fourth') {
+      subjects = ['Capstone Project', 'Advanced Programming', 'Distributed Systems'];
     }
 
     subjectInput.innerHTML = '<option value="">Select Subject</option>';
@@ -146,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     subjectInput.disabled = false;
     filterNotes(); // Filter notes whenever the subjects are updated
-  };
+  }
 
   // Attach event listeners
   yearSelect.addEventListener('change', () => {
@@ -155,9 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   subjectInput.addEventListener('change', filterNotes);
-
-  // Add event listener for search input (search by subject or topic)
-  searchInput.addEventListener('input', filterNotes);
+  searchInput.addEventListener('input', filterNotes); // Add search input event listener
 
   // Initial render of all notes
   renderNotes(notes);
