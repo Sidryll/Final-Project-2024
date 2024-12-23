@@ -22,7 +22,7 @@
     flex: 2;
     padding: 20px;
   }
-  .info-section {
+  info-section {
     flex: 1;
     padding: 20px;
     background-color: #f9f9f9;
@@ -34,7 +34,7 @@
   input[type='email'],
   input[type='tel'],
   textarea {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
@@ -42,6 +42,11 @@
   }
   textarea {
     height: 100px;
+    width: 90%;
+    padding: 10px;
+    resize: none;
+    margin-bottom: 15px;
+
   }
   .submit-btn {
     background-color: #fcc857;
