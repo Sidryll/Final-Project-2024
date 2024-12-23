@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   yearSelect.addEventListener('change', updateSubjects);
 
-  // Function to display notes
+  //Function to display notes
   // function displayNotes(): void {
   //   const notes: Note[] = JSON.parse(localStorage.getItem('notes') || '[]');
   //   notesContainer.innerHTML = '';
